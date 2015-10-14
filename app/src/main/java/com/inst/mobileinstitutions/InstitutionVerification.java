@@ -38,7 +38,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class InstitutionLogin extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class InstitutionVerification extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -66,7 +66,7 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_institution_login);
+        setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -76,18 +76,26 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    //attemptLogin();
                     return true;
                 }
                 return false;
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mUploadButton = (Button) findViewById(R.id.uploadbutton);
+        mUploadButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                uploadFile();
+            }
+        });
+
+        Button mVerificationButton= (Button) findViewById(R.id.verifybutton);
+        mVerificationButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyLogin();
             }
         });
 
@@ -138,13 +146,10 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
         }
     }
 
+    private void uploadFile() {
+    /*
+        // UPLOAD FUNCTION
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
@@ -188,8 +193,13 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
         }
+        */
+    }
+
+    private void verifyLogin(){
+        // VERIFY INSTITUTION
+        startActivity(new Intent(InstitutionVerification.this, Finished.class));
     }
 
     private boolean isEmailValid(String email) {
@@ -286,7 +296,7 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(InstitutionLogin.this,
+                new ArrayAdapter<>(InstitutionVerification.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
