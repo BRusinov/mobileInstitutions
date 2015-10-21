@@ -76,7 +76,7 @@ public class InstitutionVerification extends AppCompatActivity implements Loader
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    //attemptLogin();
+                    verifyLogin();
                     return true;
                 }
                 return false;

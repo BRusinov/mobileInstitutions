@@ -35,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.register:
                 return true;
+            case R.id.forms:
+                startActivity(new Intent(HomeActivity.this, FormListActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

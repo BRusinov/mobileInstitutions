@@ -14,13 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name=".HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_login_activity" >
         </activity>
         <activity
             android:name=".InstitutionLogin"
@@ -31,6 +35,10 @@
             android:label="@string/title_activity_institution_verification" >
         </activity>
         <activity android:name=".Finished" >
+        </activity>
+        <activity
+            android:name=".FormListActivity"
+            android:label="@string/title_activity_form_select" >
         </activity>
     </application>
 

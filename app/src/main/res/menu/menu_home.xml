@@ -5,4 +5,5 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/login" android:title="@string/action_sign_in_short" />
     <item android:id="@+id/register" android:title="@string/action_sign_up_short"/>
+    <item android:id="@+id/forms" android:title="@string/form_list_activity"/>
 </menu>

@@ -107,7 +107,7 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        /*if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -121,7 +121,7 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
                     });
         } else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
+        }*/
         return false;
     }
 
@@ -185,11 +185,16 @@ public class InstitutionLogin extends AppCompatActivity implements LoaderCallbac
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            InstitutionLoginVerification();
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
+            //startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
         }
+    }
+
+    private void InstitutionLoginVerification(){
+        startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
     }
 
     private boolean isEmailValid(String email) {
