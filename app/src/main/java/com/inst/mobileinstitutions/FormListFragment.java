@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.UUID;
 
 public class FormListFragment extends android.support.v4.app.Fragment {
     private RecyclerView mFormRecyclerView;
@@ -53,8 +54,9 @@ public class FormListFragment extends android.support.v4.app.Fragment {
 
         @Override
         public void onClick(View v){
-            //Intent intent = FormActivity.newIntent(getActivity(), formId);
-            //startActivity(intent);
+            UUID  id = UUID.randomUUID();
+            Intent intent = FormActivity.newIntent(getActivity(), id);
+            startActivity(intent);
         }
     }
 

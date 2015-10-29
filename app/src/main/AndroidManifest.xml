@@ -40,6 +40,10 @@
             android:name=".FormListActivity"
             android:label="@string/title_activity_form_select" >
         </activity>
+        <activity
+            android:name=".FormActivity"
+            android:label="@string/title_activity_form" >
+        </activity>
     </application>
 
 </manifest>
