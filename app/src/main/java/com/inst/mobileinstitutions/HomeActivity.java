@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 return true;
             case R.id.register:
+                startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
                 return true;
             case R.id.forms:
                 startActivity(new Intent(HomeActivity.this, FormListActivity.class));
