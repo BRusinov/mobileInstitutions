@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -95,16 +96,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             @Override
             public void onClick(View view) {
                 attemptLogin();
-            }
-        });
-
-        // Sign in button for institution users
-        Button mInstitutionSignInButton= (Button) findViewById(R.id.institution_sign_in_button);
-        mInstitutionSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // something when the user is institution
-                InstitutionLogin();
             }
         });
 
