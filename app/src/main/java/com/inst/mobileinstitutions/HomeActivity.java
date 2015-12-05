@@ -24,18 +24,18 @@ public class HomeActivity extends AppCompatActivity {
         APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
-                Log.w("pesho", "done");
+                Log.w("homeDone", "done");
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.w("pesho", e);
+                Log.w("homeError", e);
             }
 
             @Override
             public void onNext(List<Form> forms) {
                 for(Form form : forms) {
-                    Log.w("pesho", form.print());
+                    Log.w("homeFormsIteration", form.print());
                 }
             }
         });
