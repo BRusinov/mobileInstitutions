@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
-                Log.w("homeDone", "done");
+                Log.w("homeDone", "doneIterating");
             }
 
             @Override
