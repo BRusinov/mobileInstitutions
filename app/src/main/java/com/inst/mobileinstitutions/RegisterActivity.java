@@ -73,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Set up the login form.
@@ -88,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                     return true;
                 }
                 return false;
+
             }
         });
         // Sign in button for regular users
@@ -221,7 +223,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     private void InstitutionLogin(){
         //mAuthTask.execute((Void) null);
-        startActivity(new Intent(RegisterActivity.this, InstitutionLogin.class));
+        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
     }
 
     private boolean isEmailValid(String email) {

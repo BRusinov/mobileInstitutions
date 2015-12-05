@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.inst.mobileinstitutions.Home">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/complaint" android:title="Подай жалба" />
+    <item android:id="@+id/profile" android:title="Профил"/>
+    <item android:id="@+id/sent_complaints" android:title="Подадени оплаквания"/>
+    <item android:id="@+id/logout" android:title="Излез"/>
+</menu>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:stretchColumns="1"
+    tools:context="com.inst.mobileinstitutions.DashboardActivity">
+
+
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <View android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginBottom="50px"
+        android:background="#000000"/>
+    <TableRow>
+        <TextView
+            android:padding="3dip"
+            android:layout_marginLeft="10px"/>
+        <TextView
+            android:layout_gravity="center"
+            android:text="Дата"
+            android:padding="3dip" />
+        <TextView
+            android:layout_gravity="right"
+            android:text="Статус"
+            android:padding="3dip" />
+    </TableRow>
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+    <TableRow>
+        <TextView
+            android:text="21"
+            android:id="@+id/first"
+            android:padding="3dip"
+            android:layout_marginLeft="10px"/>
+        <TextView
+            android:layout_gravity="center"
+            android:text="21/04/2013"
+            android:padding="3dip" />
+        <TextView
+            android:layout_gravity="right"
+            android:text="Разрешена"
+            android:padding="3dip" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="1"
+            android:padding="3dip"
+            android:layout_marginLeft="10px"/>
+        <TextView
+            android:layout_gravity="center"
+            android:text="11/04/2013"
+            android:padding="3dip" />
+        <TextView
+            android:layout_gravity="right"
+            android:text="Разрешена"
+            android:padding="3dip" />
+    </TableRow>
+
+</TableLayout>

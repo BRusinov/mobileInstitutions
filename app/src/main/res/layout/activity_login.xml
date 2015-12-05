@@ -81,6 +81,7 @@
                 style="?android:textAppearanceSmall"
                 android:textStyle="bold"
                 android:gravity="center"/>
+
         </LinearLayout>
     </ScrollView>
 

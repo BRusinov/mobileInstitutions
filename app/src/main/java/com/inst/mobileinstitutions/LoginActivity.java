@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,12 @@ import android.text.method.PasswordTransformationMethod;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookSdk;
+//import com.facebook.login.widget.LoginButton;
+
+import org.w3c.dom.Text;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -69,11 +76,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView info;
+//    private LoginButton loginButton;
+//    private CallbackManager callbackManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        FacebookSdk.sdkInitialize(getApplicationContext());
+//        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
+//        info=(TextV)
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -207,18 +221,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Прекалено къса парола!");
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError("Задължително поле!");
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError("Невалиден email адрес!");
             focusView = mEmailView;
             cancel = true;
         }
@@ -233,9 +247,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            //startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
+           startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
         }
     }
+
 
     private void InstitutionLogin(){
         //mAuthTask.execute((Void) null);
@@ -323,6 +338,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         addEmailsToAutoComplete(emails);
     }
 
+
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
@@ -380,7 +396,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
-
             // TODO: register the new account here.
             return true;
         }
@@ -405,4 +420,3 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 }
-
