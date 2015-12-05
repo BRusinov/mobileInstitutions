@@ -1,7 +1,7 @@
 package com.inst.mobileinstitutions.API;
 
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+//import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -15,9 +15,10 @@ public class APIRESTAdapter {
         httpClient.networkInterceptors().add(new AuthInterceptor());
         httpClient.setAuthenticator(new AuthAuthenticator());
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // for http debug
+        /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(logging);
+        httpClient.interceptors().add(logging);*/
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(endPoint)

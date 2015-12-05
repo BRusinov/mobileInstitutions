@@ -11,6 +11,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.http.QueryMap;
 import rx.Observable;
 
@@ -18,22 +19,22 @@ public interface APIUrls {
     String SERVICE_ENDPOINT = "https://agile-garden-2320.herokuapp.com/";
 
     @GET("api/forms/")
-    Observable<List<Form>> getForms(@QueryMap Map<String, String> query);
+    Observable<List<Form>> getForms(@Query("format") String format);
 
     @GET("api/forms/{id}")
-    Observable<Form> getForm(@Path("id") int id, @QueryMap Map<String, String> query);
+    Observable<Form> getForm(@Path("id") int id, @Query("format") String format);
 
     /*@GET("api/complaints")
-    Observable<Complaints> getComplaints(@QueryMap Map<String, String> query);
+    Observable<Complaints> getComplaints(@Query("format") String format);
 
     @GET("api/complaints/{id}")
-    Observable<Complaint> getComplaint(@Path("id") String login, @QueryMap Map<String, String> query);
+    Observable<Complaint> getComplaint(@Path("id") int id, @Query("format") String format);
 
     @GET("api/users")
-    Observable<Users> getUsers(@QueryMap Map<String, String> query);
+    Observable<Users> getUsers(@Query("format") String format);
 
     @GET("api/users/{id}")
-    Observable<User> getUser(@Path("id") String login, @QueryMap Map<String, String> query);*/
+    Observable<User> getUser(@Path("id") int id, @Query("format") String format);*/
 
     @POST("/o/token/")
     @FormUrlEncoded
