@@ -3,6 +3,8 @@ package com.inst.mobileinstitutions;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
 
 
 //import com.facebook.CallbackManager;
@@ -151,7 +154,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
         });
+        // Forgotten password
+        Button mForgotten= (Button) findViewById(R.id.forgotten);
+        mForgotten.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ForgottenPassowrd();
+            }
+        });
     }
+
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -261,6 +274,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void Register(){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+    }
+    // AlertDialog
+    private void ForgottenPassowrd(){
+        final EditText email= new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("Забравена парола?")
+                .setMessage("Въведете email address:")
+                .setView(email)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        // PUSH notification will be implemented here
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private boolean isEmailValid(String email) {
