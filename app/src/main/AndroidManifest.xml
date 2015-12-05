@@ -66,6 +66,8 @@
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity android:name=".ProfileActivity" >
+        </activity>
     </application>
 
 </manifest>

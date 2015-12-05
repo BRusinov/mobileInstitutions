@@ -2,17 +2,12 @@ package com.inst.mobileinstitutions;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -24,8 +19,6 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.d("V DASHA SME", "1");
-
         first=(TextView) findViewById(R.id.first);
         first.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_dashaboard, menu);
+        getMenuInflater().inflate(R.menu.menu_options, menu);
         return true;
     }
 
@@ -55,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                 return true;
             case R.id.profile:
-                startActivity(new Intent(DashboardActivity.this, RegisterActivity.class));
+                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
                 return true;
             case R.id.sent_complaints:
                 startActivity(new Intent(DashboardActivity.this, FormListActivity.class));
