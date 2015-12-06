@@ -72,9 +72,28 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.sent_complaints:
                 startActivity(new Intent(ProfileActivity.this, FormListActivity.class));
             case R.id.logout:
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                Logout();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void Logout(){
+        new AlertDialog.Builder(this)
+                .setTitle("Съобщение?")
+                .setMessage("Сигурни ли сте, че искате да излезете от профила си?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 public class DashboardActivity extends AppCompatActivity {
 
-
     private TextView first;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.sent_complaints:
                 startActivity(new Intent(DashboardActivity.this, FormListActivity.class));
             case R.id.logout:
-                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                startActivity(new Intent(DashboardActivity.this,HomeActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
