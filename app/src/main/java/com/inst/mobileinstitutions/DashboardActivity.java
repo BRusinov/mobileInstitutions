@@ -52,7 +52,8 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.sent_complaints:
                 startActivity(new Intent(DashboardActivity.this, FormListActivity.class));
             case R.id.logout:
-                startActivity(new Intent(DashboardActivity.this,HomeActivity.class));
+                ProfileActivity logout= new ProfileActivity();
+                logout.Logout(this);
             default:
                 return super.onOptionsItemSelected(item);
         }
