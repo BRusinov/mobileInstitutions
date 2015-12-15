@@ -9,7 +9,7 @@
     <string name="action_sign_up_short">Sign up</string>
     <string name="form_list_activity">Forms</string>
     <string name="action_settings"></string>
-    <!--<string name="facebook_app_id">1648959555384074</string>-->
+    <string name="facebook_app_id">1648959555384074</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -91,4 +91,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_test">test</string>
 </resources>

@@ -1,19 +1,27 @@
 package com.inst.mobileinstitutions;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Form;
 import com.inst.mobileinstitutions.API.Forms;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import android.content.pm.Signature;
 
 import rx.Subscriber;
 
@@ -34,13 +42,30 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<Form> forms) {
-                for(Form form : forms) {
+                for (Form form : forms) {
                     Log.w("homeFormsIteration", form.print());
                 }
             }
         });
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
