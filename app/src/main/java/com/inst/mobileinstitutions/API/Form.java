@@ -13,4 +13,28 @@ public class Form {
     public String print(){
         return String.format("%s, %s, %s, %s", id, name, inst_name, main_field);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getInst_name() {
+        return inst_name;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public String getMain_field() {
+        return main_field;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

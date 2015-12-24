@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
+import com.inst.mobileinstitutions.API.Complaint;
+import com.inst.mobileinstitutions.API.Field;
 import com.inst.mobileinstitutions.API.Form;
-import com.inst.mobileinstitutions.API.Forms;
+import com.inst.mobileinstitutions.API.User;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -42,9 +44,10 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<Form> forms) {
-                for (Form form : forms) {
+                for(Form form:forms) {
                     Log.w("homeFormsIteration", form.print());
                 }
+
             }
         });
 

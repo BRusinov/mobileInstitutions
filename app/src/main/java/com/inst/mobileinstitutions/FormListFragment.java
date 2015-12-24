@@ -13,28 +13,39 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.Form;
+
 import java.util.List;
 import java.util.UUID;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 public class FormListFragment extends android.support.v4.app.Fragment {
     private RecyclerView mFormRecyclerView;
     private FormAdapter mAdapter;
 
-    private void updateUI() {
-        String [] forms = {"MVR", "LI", "PNG"};
-        if(mAdapter == null) {
-            mAdapter = new FormAdapter(forms);
-            mFormRecyclerView.setAdapter(mAdapter);
-        }else{
-            mAdapter.notifyDataSetChanged();
-        }
+    private void updateUI(Observable<List<Form>> formsObserver) {
+        formsObserver.subscribe(new Action1<List<Form>>() {
+            @Override
+            public void call(List<Form> forms) {
+                if (mAdapter == null) {
+                    mAdapter = new FormAdapter(forms);
+                    mFormRecyclerView.setAdapter(mAdapter);
+                } else {
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        Observable<List<Form>> forms = APICall.getResource("forms");
         View view = inflater.inflate(R.layout.fragment_form_list, container, false);
         mFormRecyclerView = (RecyclerView) view.findViewById(R.id.form_recycler_view);
         mFormRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
+        updateUI(forms);
         return view;
     }
 
@@ -42,8 +53,8 @@ public class FormListFragment extends android.support.v4.app.Fragment {
         private TextView mTitleTextView;
         private String mInstitutionName;
 
-        public void bindCrime(String mInstitutionName){
-            mTitleTextView.setText(mInstitutionName);
+        public void bindForm(Form form){
+            mTitleTextView.setText(form.getName());
         }
 
         public FormHolder(View itemView){
@@ -61,9 +72,9 @@ public class FormListFragment extends android.support.v4.app.Fragment {
     }
 
     private class FormAdapter extends RecyclerView.Adapter<FormHolder>{
-        private String [] mForms;
+        private List<Form> mForms;
 
-        public FormAdapter(String [] forms){
+        public FormAdapter(List<Form> forms){
             mForms = forms;
         }
 
@@ -76,18 +87,18 @@ public class FormListFragment extends android.support.v4.app.Fragment {
 
         @Override
         public void onBindViewHolder(FormHolder holder, int position){
-            String form = mForms[position];
-            holder.bindCrime(form);
+            Form form = mForms.get(position);
+            holder.bindForm(form);
         }
 
         @Override
         public int getItemCount() {
-            return mForms.length;
+            return mForms.size();
         }
     }
 
     @Override
     public void onResume() {
-        super.onResume();updateUI();
+        super.onResume();updateUI(APICall.getResource("forms"));
     }
 }

@@ -24,17 +24,34 @@ public interface APIUrls {
     @GET("api/forms/{id}")
     Observable<Form> getForm(@Path("id") int id, @Query("format") String format);
 
-    /*@GET("api/complaints")
-    Observable<Complaints> getComplaints(@Query("format") String format);
+    @GET("api/complaints/")
+    Observable<List<Complaint>> getComplaints(@Query("format") String format);
 
     @GET("api/complaints/{id}")
     Observable<Complaint> getComplaint(@Path("id") int id, @Query("format") String format);
 
-    @GET("api/users")
-    Observable<Users> getUsers(@Query("format") String format);
+    @GET("api/users/")
+    Observable<List<User>> getUsers(@Query("format") String format);
 
     @GET("api/users/{id}")
-    Observable<User> getUser(@Path("id") int id, @Query("format") String format);*/
+    Observable<User> getUser(@Path("id") int id, @Query("format") String format);
+
+    @GET("api/fields/")
+    Observable<List<Field>> getFields(@Query("format") String format);
+
+    @GET("api/fields/{id}")
+    Observable<Field> getField(@Path("id") int id, @Query("format") String format);
+
+
+    //WIP
+    @POST("/accounts/login")
+    @FormUrlEncoded
+    Call<JsonObject> login(@Field("email") String grant_type, @Field("password") String username);
+
+    @POST("/accounts/signup")
+    @FormUrlEncoded
+    Call<JsonObject> register(@Field("email") String grant_type, @Field("pword") String username);
+    //WIP
 
     @POST("/o/token/")
     @FormUrlEncoded

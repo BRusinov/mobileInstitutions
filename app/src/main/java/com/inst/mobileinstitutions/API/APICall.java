@@ -13,8 +13,8 @@ public class APICall {
     static final private APIUrls service =  APIRESTAdapter.createRetrofitService(APIUrls.class, APIUrls.SERVICE_ENDPOINT);
     static final private String format = "json";
 
-    static final private String[] pluralResources = {"forms", "complaints", "users"};
-    static final private String[] singularResources = {"form", "complaint", "user"};
+    static final private String[] pluralResources = {"forms", "complaints", "users", "fields"};
+    static final private String[] singularResources = {"form", "complaint", "user", "field"};
 
     private static boolean DoesResourceExist(String desiredResource, int objectId){
         return (objectId>0 ? Arrays.asList(singularResources) : Arrays.asList(pluralResources))
