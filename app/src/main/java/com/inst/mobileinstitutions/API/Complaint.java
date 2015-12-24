@@ -1,7 +1,5 @@
 package com.inst.mobileinstitutions.API;
 
-import java.util.Date;
-
 public class Complaint{
     private String id;
     private String status;

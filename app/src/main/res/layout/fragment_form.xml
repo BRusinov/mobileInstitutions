@@ -8,7 +8,7 @@
         android:id="@+id/form_id_text_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/form_id_text_field"
+        android:text="@string/form_name_text_field"
         style="?android:listSeparatorTextViewStyle" />
 
 </LinearLayout>

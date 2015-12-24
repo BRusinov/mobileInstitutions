@@ -1,23 +1,18 @@
 package com.inst.mobileinstitutions;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Form;
 
 import java.util.List;
-import java.util.UUID;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -51,22 +46,25 @@ public class FormListFragment extends android.support.v4.app.Fragment {
 
     private class FormHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
-        private String mInstitutionName;
+        private TextView mInstitutionName;
+        private String formId;
 
         public void bindForm(Form form){
             mTitleTextView.setText(form.getName());
+            mInstitutionName.setText(form.getInst_name());
+            formId = form.getId();
         }
 
         public FormHolder(View itemView){
             super(itemView);
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_form_title_view);
+            mInstitutionName = (TextView) itemView.findViewById(R.id.list_item_form_institution_view);
         }
 
         @Override
         public void onClick(View v){
-            UUID  id = UUID.randomUUID();
-            Intent intent = FormActivity.newIntent(getActivity(), id);
+            Intent intent = FormActivity.newIntent(getActivity(), formId);
             startActivity(intent);
         }
     }

@@ -1,7 +1,5 @@
 package com.inst.mobileinstitutions.API;
 
-import android.util.Log;
-
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
