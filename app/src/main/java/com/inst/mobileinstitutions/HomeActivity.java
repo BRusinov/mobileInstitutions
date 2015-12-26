@@ -1,37 +1,19 @@
 package com.inst.mobileinstitutions;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.facebook.appevents.AppEventsLogger;
-import com.inst.mobileinstitutions.API.APICall;
-import com.inst.mobileinstitutions.API.APICredentials;
-import com.inst.mobileinstitutions.API.Complaint;
-import com.inst.mobileinstitutions.API.Field;
-import com.inst.mobileinstitutions.API.Form;
-import com.inst.mobileinstitutions.API.User;
-
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import android.content.pm.Signature;
-
-import rx.Subscriber;
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
+        /*APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
                 Log.w("homeDone", "doneIterating");
@@ -49,7 +31,10 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
+
+        //APICall.signUp("vengefulfly@abv.com", "withapassword");
+        //APICall.signIn("dimitar.trz@gmail.com", "pesho123");
 
 
         super.onCreate(savedInstanceState);

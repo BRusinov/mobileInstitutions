@@ -1,9 +1,11 @@
 package com.inst.mobileinstitutions.API;
 
 import com.google.gson.JsonObject;
+import com.inst.mobileinstitutions.API.Models.Complaint;
+import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.API.Models.User;
 
 import java.util.List;
-import java.util.Map;
 
 import retrofit.Call;
 import retrofit.http.Field;
@@ -12,7 +14,6 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
-import retrofit.http.QueryMap;
 import rx.Observable;
 
 public interface APIUrls {
@@ -46,12 +47,12 @@ public interface APIUrls {
     //WIP
     @POST("/accounts/login")
     @FormUrlEncoded
-    Call<JsonObject> login(@Field("email") String grant_type, @Field("password") String username);
+    Observable<JsonObject> login(@Field("email") String email, @Field("password") String password);
 
-    @POST("/accounts/signup")
-    @FormUrlEncoded
-    Call<JsonObject> register(@Field("email") String grant_type, @Field("pword") String username);
     //WIP
+    @POST("/api/sign_up")
+    @FormUrlEncoded
+    Observable<JsonObject> register(@Field("email") String email, @Field("password") String password);
 
     @POST("/o/token/")
     @FormUrlEncoded

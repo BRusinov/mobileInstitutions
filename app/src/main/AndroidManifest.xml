@@ -55,11 +55,11 @@
         <activity android:name=".Finished" >
         </activity>
         <activity
-            android:name=".FormListActivity"
+            android:name=".Forms.List.FormListActivity"
             android:label="@string/title_activity_form_select" >
         </activity>
         <activity
-            android:name=".FormActivity"
+            android:name=".Forms.Show.FormActivity"
             android:label="@string/title_activity_form" >
         </activity>
         <activity

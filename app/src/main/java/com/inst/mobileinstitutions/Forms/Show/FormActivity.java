@@ -1,8 +1,10 @@
-package com.inst.mobileinstitutions;
+package com.inst.mobileinstitutions.Forms.Show;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+
+import com.inst.mobileinstitutions.SingleFragmentActivity;
 
 public class FormActivity extends SingleFragmentActivity {
 
