@@ -1,4 +1,4 @@
-package com.inst.mobileinstitutions.API;
+package com.inst.mobileinstitutions.API.Models;
 
 public class Complaint{
     private String id;

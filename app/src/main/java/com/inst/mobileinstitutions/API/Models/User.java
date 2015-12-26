@@ -1,4 +1,4 @@
-package com.inst.mobileinstitutions.API;
+package com.inst.mobileinstitutions.API.Models;
 
 import java.util.Date;
 

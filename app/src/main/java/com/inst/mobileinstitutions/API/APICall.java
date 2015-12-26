@@ -2,10 +2,15 @@ package com.inst.mobileinstitutions.API;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class APICall {
@@ -54,6 +59,51 @@ public class APICall {
 
     public static APIUrls getService() {
         return service;
+    }
+
+    //WIP
+    public static void signUp(String email, String password){
+        service.register(email, password)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<JsonObject>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.w("regerror", e);
+            }
+
+            @Override
+            public void onNext(JsonObject response) {
+                Log.w("regsuccess", response.toString());
+            }
+        });
+    }
+
+    public static void signIn(String email, String password){
+        service.login(email, password)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("regerror", e);
+                    }
+
+                    @Override
+                    public void onNext(JsonObject response) {
+                        Log.w("regsuccess", response.toString());
+                    }
+                });
     }
 }
 

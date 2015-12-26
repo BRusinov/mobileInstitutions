@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override

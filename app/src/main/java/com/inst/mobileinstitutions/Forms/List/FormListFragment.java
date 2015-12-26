@@ -1,16 +1,19 @@
-package com.inst.mobileinstitutions;
+package com.inst.mobileinstitutions.Forms.List;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
-import com.inst.mobileinstitutions.API.Form;
+import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.Forms.Show.FormActivity;
+import com.inst.mobileinstitutions.R;
 
 import java.util.List;
 
