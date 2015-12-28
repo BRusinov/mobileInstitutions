@@ -4,14 +4,19 @@ import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.Models.Complaint;
 import com.inst.mobileinstitutions.API.Models.Form;
 import com.inst.mobileinstitutions.API.Models.User;
+import com.squareup.okhttp.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Call;
+import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
@@ -43,6 +48,11 @@ public interface APIUrls {
     @GET("api/fields/{id}")
     Observable<Field> getField(@Path("id") int id, @Query("format") String format);
 
+    @POST("/api/form_submit/{form_id}")
+    @Multipart
+    Observable<JsonObject> submitForm(@Path("form_id") int form_id,
+                                      @Body Map<String, String> fields,
+                                      @PartMap Map<String, RequestBody> files);
 
     //WIP
     @POST("/accounts/login")
