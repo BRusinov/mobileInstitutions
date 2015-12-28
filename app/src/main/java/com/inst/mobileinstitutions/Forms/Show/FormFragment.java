@@ -1,12 +1,20 @@
 package com.inst.mobileinstitutions.Forms.Show;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,12 +30,13 @@ import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
 import com.inst.mobileinstitutions.R;
+import com.ipaulpro.afilechooser.FileChooserActivity;
+import com.ipaulpro.afilechooser.utils.FileUtils;
 
 import java.util.List;
 
 import rx.Observable;
 import rx.functions.Action1;
-
 
 public class FormFragment extends android.support.v4.app.Fragment {
 
@@ -62,7 +71,6 @@ public class FormFragment extends android.support.v4.app.Fragment {
             public void call(Form form) {
                 mFormTitle.setText(form.getName());
                 populateForm(form.getFields());
-                Log.w("debugform", "'ere");
             }
         });
         return v;
@@ -106,8 +114,22 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     break;
 
                 case "file":
-                    EditText file = new EditText(getActivity());
-                    mFormHolder.addView(file);
+                    Button fileButton = new Button(getActivity());
+                    mFormHolder.addView(fileButton);
+                    fileButton.setText(field.getName());
+                    showChooser(FILE_CHOOSER_REQUEST_CODE);
+                    fileButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                Log.w("permissionsss", "just kinda curious. Whats the feelin' to be wrong again");
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_BEGGING_REQUEST_CONSTANT);
+                            } else {
+                                Log.w("permisssionsss", "this didnt work a minute ago. Still doesnt but for some reason does....");
+                                showChooser(FILE_CHOOSER_REQUEST_CODE);
+                            }
+                        }
+                    });
                     break;
 
                 case "checkbox":
@@ -121,5 +143,44 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     break;
             }
         }
+    }
+
+    private final int FILE_CHOOSER_REQUEST_CODE = 42;
+    private final int PERMISSION_BEGGING_REQUEST_CONSTANT = 234;
+
+    private void showChooser(int request_code) {
+        Intent target = FileUtils.createGetContentIntent();
+        Intent intent = Intent.createChooser(target, "pesho");
+        startActivityForResult(intent, request_code);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.w("permissionssss", "'least we reach here");
+        switch (requestCode) {
+            case PERMISSION_BEGGING_REQUEST_CONSTANT: {
+                Log.w("permissionsss", "last stop....");
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.w("permissionsss", "ok i dont get it... if we do get here then whats wrong. Is there no God?!?1!");
+                    showChooser(FILE_CHOOSER_REQUEST_CODE);
+                }
+                break;
+            }
+
+            default:
+                Log.w("permissionsss", "then.... whats the request code?: " + requestCode);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.w("permissionsssss", Integer.toString(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)));
+        try {
+            final Uri uri = data.getData();
+            final String path = FileUtils.getPath(getActivity(), uri);
+        } catch (Exception ex) {
+            Log.w("pesho", ex);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

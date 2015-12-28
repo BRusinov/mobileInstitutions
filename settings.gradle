@@ -1,2 +1,2 @@
-include ':app', ':libs'
+include ':app'
 include ':aFileChooser'

@@ -1,13 +1,30 @@
 package com.inst.mobileinstitutions;
 
+import android.Manifest;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.OperationApplicationException;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //APICall.signUp("vengefulfly@abv.com", "withapassword");
         //APICall.signIn("dimitar.trz@gmail.com", "pesho123");
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -83,4 +99,6 @@ public class HomeActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
