@@ -117,17 +117,14 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     Button fileButton = new Button(getActivity());
                     mFormHolder.addView(fileButton);
                     fileButton.setText(field.getName());
-                    showChooser(FILE_CHOOSER_REQUEST_CODE);
                     fileButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                                Log.w("permissionsss", "just kinda curious. Whats the feelin' to be wrong again");
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_BEGGING_REQUEST_CONSTANT);
-                            } else {
-                                Log.w("permisssionsss", "this didnt work a minute ago. Still doesnt but for some reason does....");
-                                showChooser(FILE_CHOOSER_REQUEST_CODE);
-                            }
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_BEGGING_REQUEST_CONSTANT);
+                        } else {
+                            showChooser(FILE_CHOOSER_REQUEST_CODE);
+                        }
                         }
                     });
                     break;
@@ -156,19 +153,13 @@ public class FormFragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        Log.w("permissionssss", "'least we reach here");
         switch (requestCode) {
             case PERMISSION_BEGGING_REQUEST_CONSTANT: {
-                Log.w("permissionsss", "last stop....");
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.w("permissionsss", "ok i dont get it... if we do get here then whats wrong. Is there no God?!?1!");
                     showChooser(FILE_CHOOSER_REQUEST_CODE);
                 }
                 break;
             }
-
-            default:
-                Log.w("permissionsss", "then.... whats the request code?: " + requestCode);
         }
     }
 
