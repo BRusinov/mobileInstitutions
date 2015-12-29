@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v13.app.FragmentCompat;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
@@ -46,6 +48,9 @@ public class FormFragment extends android.support.v4.app.Fragment {
     private LinearLayout mFormHolder;
     private String mFormId;
     private Form mForm;
+
+    private final int FILE_CHOOSER_REQUEST_CODE = 42;
+    private final int PERMISSION_BEGGING_REQUEST_CONSTANT = 234;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,35 +147,28 @@ public class FormFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private final int FILE_CHOOSER_REQUEST_CODE = 42;
-    private final int PERMISSION_BEGGING_REQUEST_CONSTANT = 234;
-
     private void showChooser(int request_code) {
         Intent target = FileUtils.createGetContentIntent();
         Intent intent = Intent.createChooser(target, "pesho");
         startActivityForResult(intent, request_code);
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_BEGGING_REQUEST_CONSTANT: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    showChooser(FILE_CHOOSER_REQUEST_CODE);
-                }
-                break;
-            }
+        if (requestCode == PERMISSION_BEGGING_REQUEST_CONSTANT && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showChooser(FILE_CHOOSER_REQUEST_CODE);
         }
-    }
+    } */ // sadly doesn't work - it should be overriden in the activity because thats what ActivityCompat does but the activity cant call showChooser or get the constant. Thanks Obama
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.w("permissionsssss", Integer.toString(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)));
         try {
             final Uri uri = data.getData();
             final String path = FileUtils.getPath(getActivity(), uri);
+
+            Log.w("result", path);
         } catch (Exception ex) {
-            Log.w("pesho", ex);
+            Log.w("aFileChooserException", ex);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
