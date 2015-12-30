@@ -108,26 +108,12 @@ public class APICall {
                 });
     }
 
-    public static void submitForm(int formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
-        fields.put("form_id", Integer.toString(formId));
-        fields.put("email", email);
-        service.submitForm(formId, fields, files).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<JsonObject>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.w("postEx", e);
-            }
-
-            @Override
-            public void onNext(JsonObject response) {
-                Log.w("jsonout", response.toString());
-            }
-        });
+    public static Observable<JsonObject> submitForm(String formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
+        fields.put("form_id", formId);
+        fields.put("email", null);
+        return service.submitForm(Integer.parseInt(formId), fields, files)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }
 

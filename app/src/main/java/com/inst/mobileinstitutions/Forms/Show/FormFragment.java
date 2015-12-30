@@ -29,11 +29,15 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+import com.inst.mobileinstitutions.LoginActivity;
 import com.inst.mobileinstitutions.R;
+import com.inst.mobileinstitutions.SingleFragmentActivity;
 import com.ipaulpro.afilechooser.FileChooserActivity;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
@@ -46,7 +50,10 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class FormFragment extends android.support.v4.app.Fragment {
 
@@ -227,7 +234,22 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     MediaType type = MediaType.parse(mimeType);
                     requestFiles.put(fileNames.get(i), RequestBody.create(type, file));
                 }
-                APICall.submitForm(Integer.parseInt(formId), email, fields, requestFiles);
+                APICall.submitForm(formId, email, fields, requestFiles).subscribe(new Subscriber<JsonObject>() {
+                            @Override
+                            public void onCompleted() {
+                                startActivity(new Intent(getActivity(), FormListActivity.class));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.w("postEx", e);
+                            }
+
+                            @Override
+                            public void onNext(JsonObject response) {
+                                Log.w("jsonout", response.toString());
+                            }
+                        });
             }
         });
     }

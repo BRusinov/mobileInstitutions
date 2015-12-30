@@ -1,33 +1,13 @@
 package com.inst.mobileinstitutions;
 
-import android.Manifest;
-import android.content.ContentProviderOperation;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.OperationApplicationException;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.RemoteException;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
-import com.squareup.okhttp.MediaType;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -92,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_app, menu);
         return true;
     }
 
