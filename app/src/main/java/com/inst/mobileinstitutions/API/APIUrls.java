@@ -48,10 +48,10 @@ public interface APIUrls {
     @GET("api/fields/{id}")
     Observable<Field> getField(@Path("id") int id, @Query("format") String format);
 
-    @POST("/api/form_submit/{form_id}")
+    @POST("/api/form_submit/{form_id}/")
     @Multipart
     Observable<JsonObject> submitForm(@Path("form_id") int form_id,
-                                      @Body Map<String, String> fields,
+                                      @PartMap Map<String, String> fields,
                                       @PartMap Map<String, RequestBody> files);
 
     //WIP

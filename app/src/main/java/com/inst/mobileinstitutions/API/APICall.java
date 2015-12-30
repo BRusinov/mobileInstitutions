@@ -3,9 +3,11 @@ package com.inst.mobileinstitutions.API;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -104,6 +106,28 @@ public class APICall {
                         Log.w("regsuccess", response.toString());
                     }
                 });
+    }
+
+    public static void submitForm(int formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
+        fields.put("form_id", Integer.toString(formId));
+        fields.put("email", email);
+        service.submitForm(formId, fields, files).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<JsonObject>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.w("postEx", e);
+            }
+
+            @Override
+            public void onNext(JsonObject response) {
+                Log.w("jsonout", response.toString());
+            }
+        });
     }
 }
 

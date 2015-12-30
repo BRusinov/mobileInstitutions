@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
@@ -15,10 +16,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+import com.squareup.okhttp.MediaType;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,6 +55,20 @@ public class HomeActivity extends AppCompatActivity {
 
         //APICall.signUp("vengefulfly@abv.com", "withapassword");
         //APICall.signIn("dimitar.trz@gmail.com", "pesho123");
+
+        /*ContentResolver cR = HomeActivity.this.getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+
+        Uri myUri = Uri.fromFile(new File("/storage/1700-131C/Pictures/mypic.jpg"));
+
+        String extension = MimeTypeMap.getFileExtensionFromUrl("/storage/1700-131C/Pictures/mypic.jpg");
+        String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
+        try {
+            String type1 = cR.getType(myUri);
+            String type2 = mime.getExtensionFromMimeType(type1);
+            MediaType type3 = MediaType.parse(type2);
+        } catch (Exception ex) {Log.w("ex", ex);}*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);

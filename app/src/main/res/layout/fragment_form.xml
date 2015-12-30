@@ -24,7 +24,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/formSubmitButton"
+            android:id="@+id/form_submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/formSubmitButtonText"
