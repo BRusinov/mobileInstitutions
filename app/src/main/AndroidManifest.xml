@@ -67,6 +67,14 @@
             android:label="@string/title_activity_form" >
         </activity>
         <activity
+            android:name=".Profile.Show.ComplaintActivity"
+            android:label="@string/title_activity_form_select" >
+        </activity>
+        <activity
+            android:name=".Profile.List.ComplaintListActivity"
+            android:label="@string/title_activity_form" >
+        </activity>
+        <activity
             android:name="com.ipaulpro.afilechooser.FileChooserActivity"
             android:exported="false"
             android:icon="@drawable/ic_chooser"

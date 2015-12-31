@@ -26,7 +26,9 @@
 
     <!-- Strings related to forms -->
     <string name="form_name_text_field">Име на формата</string>
+    <string name="complaint_name_text_field">Име на формата</string>
     <string name="form_list_name_placeholder">Име на формата</string>
+    <string name="complaint_list_name_placeholder">Име на формата</string>
     <string name="form_list_institution_placeholder">Име на институцията</string>
     <string name="formSubmitButtonText">Изпрати</string>
 

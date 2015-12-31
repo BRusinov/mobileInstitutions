@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+import com.inst.mobileinstitutions.Profile.List.ComplaintListActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -89,6 +90,9 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.register:
                 startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
+                return true;
+            case R.id.complaints:
+                startActivity(new Intent(HomeActivity.this, ComplaintListActivity.class));
                 return true;
             case R.id.forms:
                 startActivity(new Intent(HomeActivity.this, FormListActivity.class));
