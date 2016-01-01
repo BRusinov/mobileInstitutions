@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.Forms.CreateEdit.CreateEditFormActivity;
 import com.inst.mobileinstitutions.Forms.Show.FormActivity;
 import com.inst.mobileinstitutions.R;
 
@@ -23,6 +24,7 @@ import rx.functions.Action1;
 public class FormListFragment extends android.support.v4.app.Fragment {
     private RecyclerView mFormRecyclerView;
     private FormAdapter mAdapter;
+    private Button mCreateFormButton;
 
     private void updateUI(Observable<List<Form>> formsObserver) {
         formsObserver.subscribe(new Action1<List<Form>>() {
@@ -43,6 +45,16 @@ public class FormListFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_form_list, container, false);
         mFormRecyclerView = (RecyclerView) view.findViewById(R.id.form_recycler_view);
         mFormRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(/*institution*/ true){
+            mCreateFormButton = (Button) view.findViewById(R.id.form_create_button);
+            mCreateFormButton.setVisibility(View.VISIBLE);
+            mCreateFormButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(CreateEditFormActivity.newIntent(getActivity(), "newForm"));
+                }
+            });
+        }
         updateUI(forms);
         return view;
     }
@@ -67,7 +79,12 @@ public class FormListFragment extends android.support.v4.app.Fragment {
 
         @Override
         public void onClick(View v){
-            Intent intent = FormActivity.newIntent(getActivity(), formId);
+            Intent intent;
+            if(true) {
+                intent = CreateEditFormActivity.newIntent(getActivity(), formId);
+            }else {
+                intent = FormActivity.newIntent(getActivity(), formId);
+            }
             startActivity(intent);
         }
     }

@@ -67,6 +67,10 @@
             android:label="@string/title_activity_form" >
         </activity>
         <activity
+            android:name=".Forms.CreateEdit.CreateEditFormActivity"
+            android:label="@string/title_activity_form" >
+        </activity>
+        <activity
             android:name=".Profile.Show.ComplaintActivity"
             android:label="@string/title_activity_form_select" >
         </activity>

@@ -26,13 +26,27 @@
 
     <!-- Strings related to forms -->
     <string name="form_name_text_field">Име на формата</string>
+    <string name="form_new_text_field">Нова форма</string>
     <string name="complaint_name_text_field">Име на формата</string>
     <string name="form_list_name_placeholder">Име на формата</string>
     <string name="complaint_list_name_placeholder">Име на формата</string>
     <string name="form_list_institution_placeholder">Име на институцията</string>
     <string name="formSubmitButtonText">Изпрати</string>
+    <string name="form_title_text_hint">Име на формата</string>
+    <string name="form_add_field_button_text">ново поле</string>
+    <!-- field types -->
+    <string-array name="field_types_array">
+        <item>textfield</item>
+        <item>textarea</item>
+        <item>dropdown</item>
+        <item>radio</item>
+        <item>email</item>
+        <item>file</item>
+        <item>checkbox</item>
+    </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_form">FormActivity</string>
     <string name="title_activity_register">Registration</string>
