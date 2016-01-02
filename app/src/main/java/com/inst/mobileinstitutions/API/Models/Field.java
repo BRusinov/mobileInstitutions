@@ -3,6 +3,7 @@ package com.inst.mobileinstitutions.API.Models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,11 +79,35 @@ public class Field {
         return required;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String print(){
         return String.format("%s, %s, %s, %s", id, name, description, type);
     }
 
     public Field(){
         fieldOptions = new ArrayList<>();
+    }
+
+    public Field(String name, Boolean required, String type){
+        this.name = name;
+        this.required = required.toString();
+        this.type = Arrays.asList(FIELD_TYPES).indexOf(type);
+        fieldOptions = new ArrayList<>();
+    }
+
+    public void addFieldOption(FieldOption newFieldOption){
+        if(!fieldOptions.contains(newFieldOption)){
+            fieldOptions.add(newFieldOption);
+        }
+    }
+
+    public void updateField(Field updatedField){
+        name = updatedField.getName();
+        type = updatedField.getType();
+        required = updatedField.getRequired();
+        fieldOptions = updatedField.getFieldOptions();
     }
 }

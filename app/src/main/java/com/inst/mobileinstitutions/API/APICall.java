@@ -3,6 +3,7 @@ package com.inst.mobileinstitutions.API;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.inst.mobileinstitutions.API.Models.Form;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
@@ -114,6 +115,50 @@ public class APICall {
         return service.submitForm(Integer.parseInt(formId), fields, files)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static void createForm(Form createdForm){
+        service.createForm(createdForm)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.w("jsonOutput", "complet");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("JsonError", e);
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        Log.w("jsonOutput", jsonObject.toString());
+                    }
+                });
+    }
+
+    public static void updateForm(String id, Form updatedForm){
+        service.updateForm(Integer.parseInt(id), updatedForm)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.w("jsonOutput", "complet");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("JsonError", e);
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        Log.w("jsonOutput", jsonObject.toString());
+                    }
+                });
     }
 }
 

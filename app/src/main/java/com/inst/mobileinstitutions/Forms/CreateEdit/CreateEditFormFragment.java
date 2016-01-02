@@ -2,6 +2,7 @@ package com.inst.mobileinstitutions.Forms.CreateEdit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Field;
@@ -62,6 +64,7 @@ public class CreateEditFormFragment extends Fragment {
             mSubmitButton.setText("Създай");
             mForm = new Form();
             setupNewFieldButton();
+            setupCreateEditFormButton();
         }else {
             APICall.getResource("form", Integer.valueOf(mFormId)).subscribe(new Action1<Form>() {
                 @Override
@@ -70,6 +73,7 @@ public class CreateEditFormFragment extends Fragment {
                     mForm = form;
                     putFields();
                     setupNewFieldButton();
+                    setupCreateEditFormButton();
                 }
             });
             mSubmitButton.setText("Обнови");
@@ -84,17 +88,19 @@ public class CreateEditFormFragment extends Fragment {
     }
 
     private void setFieldEdit(Field field){
-        final LinearLayout fieldLayout = new LinearLayout(getActivity());
-        fieldLayout.setOrientation(LinearLayout.VERTICAL);
-
         final Button fieldButton = new Button(getActivity());
         fieldButton.setText(field.getName());
+
+        final LinearLayout fieldLayout = new LinearLayout(getActivity());
+        int fieldId = field.getId() == null ? -1 : Integer.parseInt(field.getId());
+        fieldLayout.setId(fieldId);
+        fieldLayout.setOrientation(LinearLayout.VERTICAL);
 
         EditText fieldName = new EditText(getActivity());
         fieldName.setText(field.getName());
 
-        CheckBox required = new CheckBox(getActivity());
-        required.setText("required");
+        CheckBox fieldRequired = new CheckBox(getActivity());
+        fieldRequired.setText("required");
 
 
         final LinearLayout fieldOptionsLayout = new LinearLayout(getActivity());
@@ -111,16 +117,16 @@ public class CreateEditFormFragment extends Fragment {
             fieldOptionsHolder.addView(option);
         }
 
-        Button newFieldOption = new Button(getActivity());
-        newFieldOption.setText("нова опция");
-        newFieldOption.setOnClickListener(new View.OnClickListener() {
+        Button newFieldOptionButton = new Button(getActivity());
+        newFieldOptionButton.setText("нова опция");
+        newFieldOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText newOption = new EditText(getActivity());
                 fieldOptionsHolder.addView(newOption);
             }
         });
-        fieldOptionsLayout.addView(newFieldOption);
+        fieldOptionsLayout.addView(newFieldOptionButton);
 
 
         Spinner fieldType = new Spinner(getActivity());
@@ -133,20 +139,23 @@ public class CreateEditFormFragment extends Fragment {
                 String item = parent.getItemAtPosition(position).toString();
                 if (item.equals("dropdown") || item.equals("radio")) {
                     fieldOptionsLayout.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     fieldOptionsLayout.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
+        fieldName.setTag("name");
         fieldLayout.addView(fieldName);
+        fieldType.setTag("type");
         fieldLayout.addView(fieldType);
-        fieldLayout.addView(required);
+        fieldRequired.setTag("required");
+        fieldLayout.addView(fieldRequired);
+        fieldOptionsHolder.setTag("fieldOptions");
         fieldLayout.addView(fieldOptionsLayout);
 
         fieldLayout.setVisibility(View.GONE);
@@ -169,5 +178,45 @@ public class CreateEditFormFragment extends Fragment {
                 setFieldEdit(new Field());
             }
         });
+    }
+
+    private void setupCreateEditFormButton(){
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mFormTitle.getText().toString().isEmpty())
+                    mForm.setName(mFormTitle.getText().toString());
+                else
+                    Toast.makeText(getActivity(), "GIVE ME A NAME!", Toast.LENGTH_LONG).show();
+                for(int i=1; i<mFormHolder.getChildCount(); i+=2){
+                    handleField((LinearLayout) mFormHolder.getChildAt(i));
+                }
+
+                if(mForm.getId() == null){
+                    APICall.createForm(mForm);
+                }else{
+                    APICall.updateForm(mFormId, mForm);
+                }
+            }
+        });
+    }
+
+    private void handleField(LinearLayout fieldHolder){
+        String fieldId = Integer.toString(fieldHolder.getId());
+        String fieldName = ((EditText) fieldHolder.findViewWithTag("name")).getText().toString();
+        Boolean fieldRequired = ((CheckBox) fieldHolder.findViewWithTag("required")).isEnabled();
+        String fieldType = ((Spinner) fieldHolder.findViewWithTag("type")).getSelectedItem().toString();
+        Field field = new Field(fieldName, fieldRequired, fieldType);
+        LinearLayout fieldOptionsHolder = (LinearLayout) fieldHolder.findViewWithTag("fieldOptions");
+        for(int i=0; i<fieldOptionsHolder.getChildCount(); i++){
+            String newOption = ((EditText) fieldOptionsHolder.getChildAt(i)).getText().toString();
+            field.addFieldOption(new FieldOption(newOption));
+        }
+        if(fieldId.equals("-1")){
+            mForm.addField(field);
+        }else{
+            field.setId(fieldId);
+            mForm.updateField(field);
+        }
     }
 }

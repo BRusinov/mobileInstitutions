@@ -16,6 +16,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -53,6 +54,12 @@ public interface APIUrls {
     Observable<JsonObject> submitForm(@Path("form_id") int form_id,
                                       @PartMap Map<String, String> fields,
                                       @PartMap Map<String, RequestBody> files);
+
+    @POST("api/forms/")
+    Observable<JsonObject> createForm(@Body Form form_body);
+
+    @PUT("api/forms/{form_id}/")
+    Observable<JsonObject> updateForm(@Path("form_id") int form_id, @Body Form form_body);
 
     //WIP
     @POST("/accounts/login")

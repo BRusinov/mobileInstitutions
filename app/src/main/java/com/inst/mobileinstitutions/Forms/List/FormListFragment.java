@@ -80,7 +80,7 @@ public class FormListFragment extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v){
             Intent intent;
-            if(false) {
+            if(true) {
                 intent = CreateEditFormActivity.newIntent(getActivity(), formId);
             }else {
                 intent = FormActivity.newIntent(getActivity(), formId);

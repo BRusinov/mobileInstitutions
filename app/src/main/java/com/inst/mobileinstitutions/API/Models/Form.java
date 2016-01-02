@@ -2,6 +2,7 @@ package com.inst.mobileinstitutions.API.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class Form {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getInst_name() {
@@ -45,5 +50,23 @@ public class Form {
 
     public List<Field> getFields() {
         return fields;
+    }
+
+    public Form(){
+        fields = new ArrayList<>();
+    }
+
+    public void addField(Field newField){
+        fields.add(newField);
+    }
+
+    public void updateField(Field updatedField){
+        String fieldId = updatedField.getId();
+        for(Field formField : fields){
+            if(formField.getId().equals(fieldId)){
+                formField.updateField(updatedField);
+                break;
+            }
+        }
     }
 }
