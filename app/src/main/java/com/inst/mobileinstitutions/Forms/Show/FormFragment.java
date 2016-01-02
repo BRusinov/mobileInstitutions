@@ -235,21 +235,21 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     requestFiles.put(fileNames.get(i), RequestBody.create(type, file));
                 }
                 APICall.submitForm(formId, email, fields, requestFiles).subscribe(new Subscriber<JsonObject>() {
-                            @Override
-                            public void onCompleted() {
-                                startActivity(new Intent(getActivity(), FormListActivity.class));
-                            }
+                    @Override
+                    public void onCompleted() {
+                        startActivity(new Intent(getActivity(), FormListActivity.class));
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.w("postEx", e);
-                            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("postEx", e);
+                    }
 
-                            @Override
-                            public void onNext(JsonObject response) {
-                                Log.w("jsonout", response.toString());
-                            }
-                        });
+                    @Override
+                    public void onNext(JsonObject response) {
+                        Log.w("jsonout", response.toString());
+                    }
+                });
             }
         });
     }

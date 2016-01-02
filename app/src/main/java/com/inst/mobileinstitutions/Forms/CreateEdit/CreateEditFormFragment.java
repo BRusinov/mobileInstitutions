@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Field;
+import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
 import com.inst.mobileinstitutions.R;
 
@@ -59,6 +61,7 @@ public class CreateEditFormFragment extends Fragment {
         if(newForm){
             mSubmitButton.setText("Създай");
             mForm = new Form();
+            setupNewFieldButton();
         }else {
             APICall.getResource("form", Integer.valueOf(mFormId)).subscribe(new Action1<Form>() {
                 @Override
@@ -66,6 +69,7 @@ public class CreateEditFormFragment extends Fragment {
                     mFormTitle.setText(form.getName());
                     mForm = form;
                     putFields();
+                    setupNewFieldButton();
                 }
             });
             mSubmitButton.setText("Обнови");
@@ -80,12 +84,44 @@ public class CreateEditFormFragment extends Fragment {
     }
 
     private void setFieldEdit(Field field){
+        final LinearLayout fieldLayout = new LinearLayout(getActivity());
+        fieldLayout.setOrientation(LinearLayout.VERTICAL);
+
         final Button fieldButton = new Button(getActivity());
         fieldButton.setText(field.getName());
-        final LinearLayout fieldLayout = new LinearLayout(getActivity());
 
         EditText fieldName = new EditText(getActivity());
         fieldName.setText(field.getName());
+
+        CheckBox required = new CheckBox(getActivity());
+        required.setText("required");
+
+
+        final LinearLayout fieldOptionsLayout = new LinearLayout(getActivity());
+        fieldOptionsLayout.setVisibility(View.GONE);
+        fieldOptionsLayout.setOrientation(LinearLayout.VERTICAL);
+
+        final LinearLayout fieldOptionsHolder = new LinearLayout(getActivity());
+        fieldOptionsHolder.setOrientation(LinearLayout.VERTICAL);
+        fieldOptionsLayout.addView(fieldOptionsHolder);
+
+        for(FieldOption fieldOption : field.getFieldOptions()){
+            EditText option = new EditText(getActivity());
+            option.setText(fieldOption.getOption());
+            fieldOptionsHolder.addView(option);
+        }
+
+        Button newFieldOption = new Button(getActivity());
+        newFieldOption.setText("нова опция");
+        newFieldOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newOption = new EditText(getActivity());
+                fieldOptionsHolder.addView(newOption);
+            }
+        });
+        fieldOptionsLayout.addView(newFieldOption);
+
 
         Spinner fieldType = new Spinner(getActivity());
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.field_types_array, android.R.layout.simple_spinner_item);
@@ -95,7 +131,11 @@ public class CreateEditFormFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                if(item.equals("dropdown") || item.equals("radio")){}
+                if (item.equals("dropdown") || item.equals("radio")) {
+                    fieldOptionsLayout.setVisibility(View.VISIBLE);
+                }else{
+                    fieldOptionsLayout.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -106,6 +146,8 @@ public class CreateEditFormFragment extends Fragment {
 
         fieldLayout.addView(fieldName);
         fieldLayout.addView(fieldType);
+        fieldLayout.addView(required);
+        fieldLayout.addView(fieldOptionsLayout);
 
         fieldLayout.setVisibility(View.GONE);
         mFormHolder.addView(fieldButton);
@@ -114,8 +156,17 @@ public class CreateEditFormFragment extends Fragment {
         fieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fieldLayout.setVisibility(View.VISIBLE);
-                fieldButton.setVisibility(View.GONE);
+                int newVisibility = fieldLayout.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
+                fieldLayout.setVisibility(newVisibility);
+            }
+        });
+    }
+
+    private void setupNewFieldButton(){
+        mNewFieldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFieldEdit(new Field());
             }
         });
     }

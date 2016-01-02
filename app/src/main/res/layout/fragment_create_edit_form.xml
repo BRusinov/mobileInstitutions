@@ -1,59 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/form_title_edit_text"
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/form_title_text_hint"/>
+        android:orientation="vertical"
+        android:paddingBottom="100dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/form_title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/form_title_text_hint"/>
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/form_holder_layout">
             </LinearLayout>
-        </ScrollView>
 
-        <Button
-            android:id="@+id/form_add_field_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/form_add_field_button_text"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/form_submit_button" />
+            <Button
+                android:id="@+id/form_add_field_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/form_add_field_button_text" />
 
-        <Button
-            android:id="@+id/form_submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/formSubmitButtonText"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false"
-            android:layout_centerHorizontal="true" />
+            <Button
+                android:id="@+id/form_submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/formSubmitButtonText" />
 
-    </RelativeLayout>
+        </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

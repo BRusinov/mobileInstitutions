@@ -81,4 +81,8 @@ public class Field {
     public String print(){
         return String.format("%s, %s, %s, %s", id, name, description, type);
     }
+
+    public Field(){
+        fieldOptions = new ArrayList<>();
+    }
 }
