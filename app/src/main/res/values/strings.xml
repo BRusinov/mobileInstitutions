@@ -44,7 +44,12 @@
         <item>file</item>
         <item>checkbox</item>
     </string-array>
-
+    <!-- status types -->
+    <string-array name="complaint_status_types">
+        <item>Отхвърлена</item>
+        <item>Разглежда се</item>
+        <item>Разрешена</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

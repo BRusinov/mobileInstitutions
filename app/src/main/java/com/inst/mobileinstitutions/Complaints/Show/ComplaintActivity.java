@@ -1,4 +1,4 @@
-package com.inst.mobileinstitutions.Profile.Show;
+package com.inst.mobileinstitutions.Complaints.Show;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +12,13 @@ public class ComplaintActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment(){
-        String formId = (String) getIntent().getSerializableExtra(EXTRA_COMPLAINT_ID);
-        return ComplaintFragment.newInstance(formId);
+        String complaintId = (String) getIntent().getSerializableExtra(EXTRA_COMPLAINT_ID);
+        return ComplaintFragment.newInstance(complaintId);
     }
 
-    public static Intent newIntent(Context packageContext, String formId) {
+    public static Intent newIntent(Context packageContext, String complaintId) {
         Intent intent = new Intent(packageContext, ComplaintActivity.class);
-        intent.putExtra(EXTRA_COMPLAINT_ID, formId);
+        intent.putExtra(EXTRA_COMPLAINT_ID, complaintId);
         return intent;
     }
 }

@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
-import com.inst.mobileinstitutions.Profile.List.ComplaintListActivity;
+import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 
 public class HomeActivity extends AppCompatActivity {
 

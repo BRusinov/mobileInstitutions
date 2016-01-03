@@ -117,6 +117,12 @@ public class APICall {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static void updateComplaint(int status, String complaintId){
+        /*service.updateComplaint(complaintId, status)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());*/
+    }
+
     public static void createForm(Form createdForm){
         service.createForm(createdForm)
                 .subscribeOn(Schedulers.newThread())

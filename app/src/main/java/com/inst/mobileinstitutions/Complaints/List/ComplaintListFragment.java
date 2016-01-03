@@ -1,4 +1,4 @@
-package com.inst.mobileinstitutions.Profile.List;
+package com.inst.mobileinstitutions.Complaints.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Complaint;
-import com.inst.mobileinstitutions.Profile.Show.ComplaintActivity;
+import com.inst.mobileinstitutions.Complaints.Edit.ComplaintEditActivity;
+import com.inst.mobileinstitutions.Complaints.Show.ComplaintActivity;
 import com.inst.mobileinstitutions.R;
 
 import java.util.List;
@@ -64,7 +64,12 @@ public class ComplaintListFragment extends android.support.v4.app.Fragment {
 
         @Override
         public void onClick(View v){
-            Intent intent = ComplaintActivity.newIntent(getActivity(), complaintId);
+            Intent intent;
+            if(true) {
+                intent = ComplaintEditActivity.newIntent(getActivity(), complaintId);
+            }else {
+                intent = ComplaintActivity.newIntent(getActivity(), complaintId);
+            }
             startActivity(intent);
         }
     }

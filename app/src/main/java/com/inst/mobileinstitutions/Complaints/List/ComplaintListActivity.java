@@ -1,4 +1,4 @@
-package com.inst.mobileinstitutions.Profile.List;
+package com.inst.mobileinstitutions.Complaints.List;
 
 import android.support.v4.app.Fragment;
 

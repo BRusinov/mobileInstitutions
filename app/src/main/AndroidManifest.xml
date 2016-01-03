@@ -71,11 +71,15 @@
             android:label="@string/title_activity_form" >
         </activity>
         <activity
-            android:name=".Profile.Show.ComplaintActivity"
+            android:name=".Complaints.Show.ComplaintActivity"
             android:label="@string/title_activity_form_select" >
         </activity>
         <activity
-            android:name=".Profile.List.ComplaintListActivity"
+            android:name=".Complaints.List.ComplaintListActivity"
+            android:label="@string/title_activity_form" >
+        </activity>
+        <activity
+            android:name=".Complaints.Edit.ComplaintEditActivity"
             android:label="@string/title_activity_form" >
         </activity>
         <activity
