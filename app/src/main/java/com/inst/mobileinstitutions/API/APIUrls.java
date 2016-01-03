@@ -61,10 +61,10 @@ public interface APIUrls {
     @PUT("api/forms/{form_id}/")
     Observable<JsonObject> updateForm(@Path("form_id") int form_id, @Body Form form_body);
 
-    //WIP
+    /*
     @POST("/accounts/login")
     @FormUrlEncoded
-    Observable<JsonObject> login(@Field("email") String email, @Field("password") String password);
+    Observable<JsonObject> login(@Field("email") String email, @Field("password") String password);*/
 
     //WIP
     @POST("/api/sign_up")

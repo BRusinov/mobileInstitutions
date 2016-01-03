@@ -87,7 +87,7 @@ public class APICall {
         });
     }
 
-    public static void signIn(String email, String password){
+    /*public static void signIn(String email, String password){
         service.login(email, password)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -107,7 +107,7 @@ public class APICall {
                         Log.w("regsuccess", response.toString());
                     }
                 });
-    }
+    }*/
 
     public static Observable<JsonObject> submitForm(String formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
         fields.put("form_id", formId);
@@ -165,6 +165,11 @@ public class APICall {
                         Log.w("jsonOutput", jsonObject.toString());
                     }
                 });
+    }
+
+    public static void signIn(String username, String password){
+        APICredentials.setUsername(username);
+        APICredentials.setPassword(password);
     }
 }
 
