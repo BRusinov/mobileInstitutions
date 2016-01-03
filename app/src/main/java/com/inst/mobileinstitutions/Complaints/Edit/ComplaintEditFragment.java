@@ -3,6 +3,7 @@ package com.inst.mobileinstitutions.Complaints.Edit;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +23,7 @@ import com.inst.mobileinstitutions.API.Models.Fill;
 import com.inst.mobileinstitutions.R;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import rx.functions.Action1;
@@ -123,7 +125,20 @@ public class ComplaintEditFragment extends Fragment {
     }
 
     private void writeFileToSdCard(File fileToWrite){
-        // TODO write to file
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/mobileInstitutions");
+        myDir.mkdirs();
+        String fname = fileToWrite.getName();
+        File file = new File (myDir, fname);
+        if (file.exists ()) file.delete ();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
