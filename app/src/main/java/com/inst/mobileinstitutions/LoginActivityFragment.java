@@ -139,7 +139,7 @@ public class LoginActivityFragment extends Fragment {
         StringBuilder stringBuilder = new StringBuilder();
         if (profile != null) {
             stringBuilder.append("Logged In " + profile.getFirstName());
-            Toast.makeText(getActivity(), "Start Playing with the data "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
             Intent intent= new Intent(getActivity(),DashboardActivity.class);
             startActivity(intent);
         }else{
