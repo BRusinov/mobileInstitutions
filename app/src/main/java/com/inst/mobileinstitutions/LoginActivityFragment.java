@@ -138,8 +138,10 @@ public class LoginActivityFragment extends Fragment {
     private String displayMessage(Profile profile) {
         StringBuilder stringBuilder = new StringBuilder();
         if (profile != null) {
-            stringBuilder.append("Logged In "+profile.getFirstName());
+            stringBuilder.append("Logged In " + profile.getFirstName());
             Toast.makeText(getActivity(), "Start Playing with the data "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(getActivity(),DashboardActivity.class);
+            startActivity(intent);
         }else{
             stringBuilder.append("You are not logged in");
         }
