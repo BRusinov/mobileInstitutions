@@ -1,9 +1,12 @@
 package com.inst.mobileinstitutions;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Base64;
@@ -120,7 +123,7 @@ public class LoginActivityFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK && isNetworkAvailable()) {
             Intent secondActivityIntent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(secondActivityIntent);
         }
@@ -138,6 +141,13 @@ public class LoginActivityFragment extends Fragment {
         super.onStop();
         profileTracker.stopTracking();
         tokenTracker.stopTracking();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private String displayMessage(Profile profile) {
