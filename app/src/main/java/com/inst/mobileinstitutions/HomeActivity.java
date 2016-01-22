@@ -5,15 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
+
 
 public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         /*APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
     }
     @Override
