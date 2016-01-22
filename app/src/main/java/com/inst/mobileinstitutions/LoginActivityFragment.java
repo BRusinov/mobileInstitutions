@@ -111,7 +111,7 @@ public class LoginActivityFragment extends Fragment {
 
         @Override
         public void onError(FacebookException e) {
-
+            Toast.makeText(getActivity(), "No internet connection. "+ e , Toast.LENGTH_SHORT).show();
         }
     };
 
