@@ -1,5 +1,6 @@
 package com.inst.mobileinstitutions;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -44,7 +45,7 @@ public class LoginActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        super.onActivityCreated(savedInstanceState);
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.inst.mobileinstitutions",
@@ -119,6 +120,10 @@ public class LoginActivityFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Intent secondActivityIntent = new Intent(getActivity(), DashboardActivity.class);
+            startActivity(secondActivityIntent);
+        }
     }
 
     @Override
@@ -140,8 +145,8 @@ public class LoginActivityFragment extends Fragment {
         if (profile != null) {
             stringBuilder.append("Logged In " + profile.getFirstName());
             Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
-            Intent intent= new Intent(getActivity(),DashboardActivity.class);
-            startActivity(intent);
+//            Intent intent= new Intent(getActivity(),DashboardActivity.class);
+//            startActivityForResult(intent, 2);
         }else{
             stringBuilder.append("You are not logged in");
         }

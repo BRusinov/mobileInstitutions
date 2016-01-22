@@ -44,6 +44,13 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.FacebookCallback;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 
 import com.facebook.CallbackManager;
@@ -156,6 +163,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ForgottenPassowrd();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
