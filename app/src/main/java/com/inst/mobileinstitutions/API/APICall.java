@@ -171,6 +171,11 @@ public class APICall {
         APICredentials.setUsername(username);
         APICredentials.setPassword(password);
     }
+
+    public static void signOut(){
+        APICredentials.setUsername("test");
+        APICredentials.setPassword("password");
+    }
 }
 
 

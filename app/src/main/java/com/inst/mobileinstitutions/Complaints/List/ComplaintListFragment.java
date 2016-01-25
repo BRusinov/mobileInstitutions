@@ -61,11 +61,10 @@ public class ComplaintListFragment extends android.support.v4.app.Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_complaint_title_view);
         }
-
         @Override
         public void onClick(View v){
             Intent intent;
-            if(true) {
+            if(false) {
                 intent = ComplaintEditActivity.newIntent(getActivity(), complaintId);
             }else {
                 intent = ComplaintActivity.newIntent(getActivity(), complaintId);

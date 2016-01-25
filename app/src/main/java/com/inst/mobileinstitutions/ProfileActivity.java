@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // need to implement password verification
-                        startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
+                        startActivity(new Intent(ProfileActivity.this, ComplaintListActivity.class));
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
