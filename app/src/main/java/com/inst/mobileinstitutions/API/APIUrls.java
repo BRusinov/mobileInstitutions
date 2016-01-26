@@ -23,7 +23,7 @@ import retrofit.http.Query;
 import rx.Observable;
 
 public interface APIUrls {
-    String SERVICE_ENDPOINT = "https://agile-garden-2320.herokuapp.com/";
+    String SERVICE_ENDPOINT = "http://podaisignal.herokuapp.com/";
 
     @GET("api/forms/")
     Observable<List<Form>> getForms(@Query("format") String format);

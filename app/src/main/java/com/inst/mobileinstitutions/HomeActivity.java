@@ -3,11 +3,17 @@ package com.inst.mobileinstitutions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.appevents.AppEventsLogger;
+import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.Models.Complaint;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
+
+import rx.Subscriber;
+import rx.functions.Action1;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -36,7 +42,13 @@ public class HomeActivity extends AppCompatActivity {
         });*/
 
         //APICall.signUp("vengefulfly@abv.com", "withapassword");
-        //APICall.signIn("dimitar.trz@gmail.com", "pesho123");
+        APICall.signIn("test0@gmail.com", "password");
+        APICall.getResource("complaints").subscribe(new Action1() {
+            @Override
+            public void call(Object o) {
+                Log.w("pesho", "asdfluhasdajksdhf");
+            }
+        });
 
         /*ContentResolver cR = HomeActivity.this.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

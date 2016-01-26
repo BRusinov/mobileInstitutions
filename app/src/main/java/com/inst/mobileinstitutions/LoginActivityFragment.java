@@ -27,6 +27,7 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -124,7 +125,7 @@ public class LoginActivityFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && isNetworkAvailable()) {
-            Intent secondActivityIntent = new Intent(getActivity(), DashboardActivity.class);
+            Intent secondActivityIntent = new Intent(getActivity(), ComplaintListActivity.class);
             startActivity(secondActivityIntent);
         }
     }
