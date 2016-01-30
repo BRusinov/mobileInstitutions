@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,8 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
+
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -55,7 +58,10 @@ import com.facebook.login.widget.LoginButton;
 
 import com.facebook.CallbackManager;
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
+
+import rx.Subscriber;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -271,10 +277,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
             APICall.signIn(email, password);
-           startActivity(new Intent(LoginActivity.this, ComplaintListActivity.class));
+            showProgress(true);
+            APICall.getResource("complaints").subscribe(new Subscriber() {
+                @Override
+                public void onCompleted() {
+                    startActivity(new Intent(LoginActivity.this, ComplaintListActivity.class));
+                    showProgress(false);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    APICall.signOut();
+                    loginError();
+                    showProgress(false);
+                }
+
+                @Override
+                public void onNext(Object o) {}
+            });
         }
+    }
+
+    private void loginError(){
+        Toast.makeText(this, "Грешна комбинация на име/парола", Toast.LENGTH_LONG).show();
     }
 
 

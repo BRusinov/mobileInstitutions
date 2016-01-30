@@ -70,21 +70,21 @@ public class APICall {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<JsonObject>() {
-            @Override
-            public void onCompleted() {
+                    @Override
+                    public void onCompleted() {
 
-            }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.w("regerror", e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("regerror", e);
+                    }
 
-            @Override
-            public void onNext(JsonObject response) {
-                Log.w("regsuccess", response.toString());
-            }
-        });
+                    @Override
+                    public void onNext(JsonObject response) {
+                        Log.w("regsuccess", response.toString());
+                    }
+                });
     }
 
     /*public static void signIn(String email, String password){
@@ -152,7 +152,7 @@ public class APICall {
                 .subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
-                        Log.w("jsonOutput", "complet");
+                        Log.w("jsonOutput", "complete");
                     }
 
                     @Override
@@ -170,11 +170,11 @@ public class APICall {
     public static void signIn(String username, String password){
         APICredentials.setUsername(username);
         APICredentials.setPassword(password);
+        APICredentials.cancelAccessToken();
     }
 
     public static void signOut(){
-        APICredentials.setUsername("test");
-        APICredentials.setPassword("password");
+        signIn("test", "password");
     }
 }
 

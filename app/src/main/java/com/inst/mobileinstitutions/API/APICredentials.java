@@ -1,5 +1,7 @@
 package com.inst.mobileinstitutions.API;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -14,22 +16,27 @@ public class APICredentials {
     static private String accessTokenType ="Bearer";
     static private String accessToken = "";
 
-    public static void setPassword(String password) {
-        APICredentials.password = password;
+    public static void setPassword(String newPassword) {
+        password = newPassword;
     }
 
-    public static void setUsername(String username) {
-        APICredentials.username = username;
+    public static void setUsername(String newUsername) {
+        username = newUsername;
     }
 
     public static String getAccessToken() {
         return accessTokenType + " " + accessToken;
     }
 
+    public static void cancelAccessToken(){
+        accessToken = "";
+    }
+
     public static String resetAccessToken() throws IOException{
         APIUrls service = APICall.getService();
         JsonObject response = service.getRefresh(grant_type, username, password, client_id, client_secret).execute().body();
-        accessToken = response.get("access_token").getAsString();
+        if(response != null)
+            accessToken = response.get("access_token").getAsString();
         return getAccessToken();
     }
 }

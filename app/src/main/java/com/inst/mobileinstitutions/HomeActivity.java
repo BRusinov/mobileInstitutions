@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.Complaint;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
@@ -42,13 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         });*/
 
         //APICall.signUp("vengefulfly@abv.com", "withapassword");
-        APICall.signIn("test0@gmail.com", "password");
-        APICall.getResource("complaints").subscribe(new Action1() {
-            @Override
-            public void call(Object o) {
-                Log.w("pesho", "asdfluhasdajksdhf");
-            }
-        });
+        //APICall.signIn("test0@gmail.com", "password");
 
         /*ContentResolver cR = HomeActivity.this.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
