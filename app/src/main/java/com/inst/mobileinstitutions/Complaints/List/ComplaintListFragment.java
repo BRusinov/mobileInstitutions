@@ -65,7 +65,7 @@ public class ComplaintListFragment extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v){
             Intent intent;
-            if(APICredentials.getLoggedUser().isInstitution()) {
+            if(APICredentials.getLoggedUser() != null && APICredentials.getLoggedUser().isInstitution()) {
                 intent = ComplaintEditActivity.newIntent(getActivity(), complaintId);
             }else {
                 intent = ComplaintActivity.newIntent(getActivity(), complaintId);
