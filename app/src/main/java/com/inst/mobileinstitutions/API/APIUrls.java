@@ -20,6 +20,7 @@ import retrofit.http.PUT;
 import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.http.QueryMap;
 import rx.Observable;
 
 public interface APIUrls {
@@ -37,11 +38,11 @@ public interface APIUrls {
     @GET("api/complaints/{id}")
     Observable<Complaint> getComplaint(@Path("id") int id, @Query("format") String format);
 
-    @GET("api/users/")
-    Observable<List<User>> getUsers(@Query("format") String format);
+    @GET("/api/users/get_by_email/{email}/")
+    Observable<User> getUsersByEmail(@Path("email") String email, @Query("format") String format);
 
-    @GET("api/users/{id}")
-    Observable<User> getUser(@Path("id") int id, @Query("format") String format);
+    @PUT("/api/users/{id}/")
+    Observable<JsonObject> updateUser(@Path("id") String id, @QueryMap() Map<String, String> userInfo);
 
     @GET("api/fields/")
     Observable<List<Field>> getFields(@Query("format") String format);

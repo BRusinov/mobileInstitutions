@@ -3,6 +3,7 @@ package com.inst.mobileinstitutions.API;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.inst.mobileinstitutions.API.Models.User;
 
 import java.io.IOException;
 
@@ -16,12 +17,30 @@ public class APICredentials {
     static private String accessTokenType ="Bearer";
     static private String accessToken = "";
 
+    static private User loggedUser = null;
+
     public static void setPassword(String newPassword) {
         password = newPassword;
     }
 
     public static void setUsername(String newUsername) {
         username = newUsername;
+    }
+
+    public static String getUsername(){
+        return username;
+    }
+
+    public static String getPassword(){
+        return password;
+    }
+
+    public static User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public static void setLoggedUser(User loggedUser) {
+        APICredentials.loggedUser = loggedUser;
     }
 
     public static String getAccessToken() {

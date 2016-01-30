@@ -3,7 +3,9 @@ package com.inst.mobileinstitutions.API;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
@@ -87,27 +89,33 @@ public class APICall {
                 });
     }
 
-    /*public static void signIn(String email, String password){
-        service.login(email, password)
+    public static Observable<User> getUserByEmail(String email){
+        return service.getUsersByEmail(email, format)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static void updateUser(String id, Map<String, String> userInfo){
+        service.updateUser(id, userInfo)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.w("userProfile", "user updated");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.w("regerror", e);
+                        Log.w("userProfile", e);
                     }
 
                     @Override
-                    public void onNext(JsonObject response) {
-                        Log.w("regsuccess", response.toString());
+                    public void onNext(JsonObject jsonObject) {
+
                     }
                 });
-    }*/
+    }
 
     public static Observable<JsonObject> submitForm(String formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
         fields.put("form_id", formId);
@@ -175,6 +183,7 @@ public class APICall {
 
     public static void signOut(){
         signIn("test", "password");
+        APICredentials.setLoggedUser(null);
     }
 }
 

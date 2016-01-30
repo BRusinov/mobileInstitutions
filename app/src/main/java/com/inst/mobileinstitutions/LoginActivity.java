@@ -59,9 +59,11 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.CallbackManager;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 
 import rx.Subscriber;
+import rx.functions.Action1;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -282,8 +284,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             APICall.getResource("complaints").subscribe(new Subscriber() {
                 @Override
                 public void onCompleted() {
-                    startActivity(new Intent(LoginActivity.this, ComplaintListActivity.class));
-                    showProgress(false);
+                    ///startActivity(new Intent(LoginActivity.this, ComplaintListActivity.class));
+                    APICall.getUserByEmail(APICredentials.getUsername()).subscribe(new Action1<User>() {
+                        @Override
+                        public void call(User user) {
+                            APICredentials.setLoggedUser(user);
+                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                            showProgress(false);
+                        }
+                    });
                 }
 
                 @Override

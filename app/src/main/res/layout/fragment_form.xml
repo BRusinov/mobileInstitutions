@@ -17,18 +17,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/form_holder_layout">
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/form_holder_layout">
+                </LinearLayout>
+                <Button
+                    android:id="@+id/form_submit_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/formSubmitButtonText"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
             </LinearLayout>
         </ScrollView>
-
-        <Button
-            android:id="@+id/form_submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/formSubmitButtonText"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
 
 </LinearLayout>

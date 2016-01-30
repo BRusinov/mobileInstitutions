@@ -21,7 +21,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/name" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_name_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Име"
                     android:inputType="textPersonName" android:maxLines="1"
                     android:singleLine="true" />
@@ -31,7 +31,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/surname" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_surname_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Фамилия"
                     android:inputType="textPersonName" android:maxLines="1"
                     android:singleLine="true" />
@@ -41,7 +41,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_email_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Email address"
                     android:inputType="textEmailAddress" android:maxLines="1"
                     android:singleLine="true" />
@@ -57,7 +57,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/city" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_city_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Град"
                     android:inputType="text" android:maxLines="1"
                     android:singleLine="true" />
@@ -67,7 +67,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/phone" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_phone_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Мобилен телефон"
                     android:inputType="text|phone" android:maxLines="1"
                     android:singleLine="true" />
@@ -77,7 +77,7 @@
             <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView android:id="@+id/address" android:layout_width="match_parent"
+                <AutoCompleteTextView android:id="@+id/profile_address_text_view" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:hint="Адрес"
                     android:inputType="textPostalAddress" android:maxLines="1"
                     android:singleLine="true" />
