@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.Form;
 import com.inst.mobileinstitutions.Forms.CreateEdit.CreateEditFormActivity;
 import com.inst.mobileinstitutions.Forms.Show.FormActivity;
@@ -45,7 +46,7 @@ public class FormListFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_form_list, container, false);
         mFormRecyclerView = (RecyclerView) view.findViewById(R.id.form_recycler_view);
         mFormRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if(/*institution*/ false){
+        if(APICredentials.getLoggedUser().isInstitution()){
             mCreateFormButton = (Button) view.findViewById(R.id.form_create_button);
             mCreateFormButton.setVisibility(View.VISIBLE);
             mCreateFormButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +81,7 @@ public class FormListFragment extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v){
             Intent intent;
-            if(false) {
+            if(APICredentials.getLoggedUser().isInstitution()) {
                 intent = CreateEditFormActivity.newIntent(getActivity(), formId);
             }else {
                 intent = FormActivity.newIntent(getActivity(), formId);

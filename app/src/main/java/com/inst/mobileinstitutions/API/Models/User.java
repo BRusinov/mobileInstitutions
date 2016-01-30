@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class User {
     private String id;
-    private String permission_level;
+    private int permission_level;
     private String first_name;
     private String last_name;
     private String city;
@@ -70,7 +70,11 @@ public class User {
         return id;
     }
 
-    public String getPermission_level() {
+    public int getPermission_level() {
         return permission_level;
+    }
+
+    public boolean isInstitution(){
+        return (getPermission_level() > 1);
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.Complaint;
 import com.inst.mobileinstitutions.Complaints.Edit.ComplaintEditActivity;
 import com.inst.mobileinstitutions.Complaints.Show.ComplaintActivity;
@@ -64,7 +65,7 @@ public class ComplaintListFragment extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v){
             Intent intent;
-            if(false) {
+            if(APICredentials.getLoggedUser().isInstitution()) {
                 intent = ComplaintEditActivity.newIntent(getActivity(), complaintId);
             }else {
                 intent = ComplaintActivity.newIntent(getActivity(), complaintId);
