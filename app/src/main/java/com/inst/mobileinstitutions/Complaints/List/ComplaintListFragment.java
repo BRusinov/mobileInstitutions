@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.inst.mobileinstitutions.API.APICall;
@@ -22,86 +25,58 @@ import rx.Observable;
 import rx.functions.Action1;
 
 public class ComplaintListFragment extends android.support.v4.app.Fragment {
-    private RecyclerView mComplaintRecyclerView;
-    private ComplaintAdapter mAdapter;
+    private TableLayout mComplaintsTable;
+    private Observable<List<Complaint>> mObservableComplaints;
 
-    private void updateUI(Observable<List<Complaint>> complaintsObserver) {
-        complaintsObserver.subscribe(new Action1<List<Complaint>>() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_complaint_list, container, false);
+        mObservableComplaints = APICall.getResource("complaints");
+        mComplaintsTable = (TableLayout) view.findViewById(R.id.complaint_list_table);
+        populateTable();
+        return view;
+    }
+
+    private void populateTable(){
+        addRow("", "Дата", "Статус");
+        mObservableComplaints.subscribe(new Action1<List<Complaint>>() {
             @Override
             public void call(List<Complaint> complaints) {
-                if (mAdapter == null) {
-                    mAdapter = new ComplaintAdapter(complaints);
-                    mComplaintRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.notifyDataSetChanged();
+                for (Complaint complaint : complaints) {
+                    addRow(complaint.getId(), complaint.getCreated_at(), complaint.getStatusString());
                 }
             }
         });
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        Observable<List<Complaint>> complaints = APICall.getResource("complaints");
-        View view = inflater.inflate(R.layout.fragment_complaint_list, container, false);
-        mComplaintRecyclerView = (RecyclerView) view.findViewById(R.id.complaint_recycler_view);
-        mComplaintRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI(complaints);
-        return view;
-    }
 
-    private class ComplaintHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mTitleTextView;
-        private String complaintId;
-
-        public void bindComplaint(Complaint complaint){
-            complaintId = complaint.getId();
-            mTitleTextView.setText(complaint.getId());
-        }
-
-        public ComplaintHolder(View itemView){
-            super(itemView);
-            itemView.setOnClickListener(this);
-            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_complaint_title_view);
-        }
-        @Override
-        public void onClick(View v){
-            Intent intent;
-            if(APICredentials.getLoggedUser() != null && APICredentials.getLoggedUser().isInstitution()) {
-                intent = ComplaintEditActivity.newIntent(getActivity(), complaintId);
-            }else {
-                intent = ComplaintActivity.newIntent(getActivity(), complaintId);
+    private void addRow(final String cid, String cdate, String cstatus){
+        TableRow complaintTableRow = new TableRow(getActivity());
+        addToTableRow(complaintTableRow, cid);
+        addToTableRow(complaintTableRow, cdate);
+        addToTableRow(complaintTableRow, cstatus);
+        complaintTableRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if (APICredentials.getLoggedUser() != null && APICredentials.getLoggedUser().isInstitution() && !cid.isEmpty()) {
+                    intent = ComplaintEditActivity.newIntent(getActivity(), cid);
+                } else {
+                    intent = ComplaintActivity.newIntent(getActivity(), cid);
+                }
+                startActivity(intent);
             }
-            startActivity(intent);
-        }
+        });
+        mComplaintsTable.addView(complaintTableRow);
     }
 
-    private class ComplaintAdapter extends RecyclerView.Adapter<ComplaintHolder>{
-        private List<Complaint> mComplaints;
-
-        public ComplaintAdapter(List<Complaint> complaints){
-            mComplaints = complaints;
-        }
-
-        @Override
-        public ComplaintHolder onCreateViewHolder(ViewGroup parent, int viewType){
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.list_item_complaint, parent, false);
-            return new ComplaintHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ComplaintHolder holder, int position){
-            Complaint complaint = mComplaints.get(position);
-            holder.bindComplaint(complaint);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mComplaints.size();
-        }
+    private void addToTableRow(TableRow complaintTableRow, String data){
+        TextView rowData = new TextView(getActivity());
+        rowData.setText(data);
+        complaintTableRow.addView(rowData);
     }
 
     @Override
     public void onResume() {
-        super.onResume();updateUI(APICall.getResource("complaints"));
+        super.onResume();
     }
 }

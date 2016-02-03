@@ -277,6 +277,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
                 public void onError(Throwable e) {
                     APICall.signOut();
                     loginError();
+                    Log.w("pesho", e);
                     showProgress(false);
                 }
 
