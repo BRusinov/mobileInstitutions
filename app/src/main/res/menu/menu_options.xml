@@ -3,8 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.inst.mobileinstitutions.Home">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/complaint" android:title="Подай жалба" />
-    <item android:id="@+id/profile" android:title="Профил"/>
-    <item android:id="@+id/sent_complaints" android:title="Подадени оплаквания"/>
-    <item android:id="@+id/logout" android:title="Излез"/>
+
+    <item android:id="@+id/complain_menu_item" android:title="Подай жалба" />
+
+    <group android:id="@+id/unlogged_group">
+        <item android:id="@+id/login_menu_item" android:title="Влез"/>
+        <item android:id="@+id/register_menu_item" android:title="Регистрирай се"/>
+    </group>
+
+    <group android:id="@+id/logged_group">
+        <item android:id="@+id/profile_menu_item" android:title="Профил"/>
+        <item android:id="@+id/sent_complaints_menu_item" android:title="Подадени оплаквания"/>
+        <item android:id="@+id/logout_menu_item" android:title="Излез"/>
+    </group>
 </menu>

@@ -117,4 +117,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_test">test</string>
+    <string name="title_activity_base_menu">BaseMenuActivity</string>
 </resources>
