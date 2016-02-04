@@ -17,6 +17,7 @@ public class Complaint{
 
     String[] statuses = {"Pending", "Rejected", "Resolved"};
 
+
     public String print() {
         return String.format("%s, %s, %s", id, created_at, hash_value);
     }

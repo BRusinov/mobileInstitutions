@@ -31,9 +31,11 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.LoginActivity;
 import com.inst.mobileinstitutions.R;
@@ -42,6 +44,8 @@ import com.ipaulpro.afilechooser.FileChooserActivity;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -109,6 +113,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     EditText text = new EditText(getActivity());
                     text.setHint(field.getDescription());
                     mFormHolder.addView(text);
+                    setAutofill(text, field);
                     break;
 
                 case "textarea":
@@ -142,6 +147,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                     email.setHint(field.getDescription());
                     mFormHolder.addView(email);
+                    setAutofill(email, field);
                     break;
 
                 case "file":
@@ -181,6 +187,30 @@ public class FormFragment extends android.support.v4.app.Fragment {
         Intent target = FileUtils.createGetContentIntent();
         Intent intent = Intent.createChooser(target, "pesho");
         startActivityForResult(intent, request_code);
+    }
+
+    private void setAutofill(EditText textfield, Field field){
+        User currentUser = APICredentials.getLoggedUser();
+        switch (field.getAutofill()){
+            case 0:
+                textfield.setText(currentUser.getFirst_name());
+                break;
+            case 1:
+                textfield.setText(currentUser.getLast_name());
+                break;
+            case 2:
+                textfield.setText(currentUser.getCity());
+                break;
+            case 3:
+                textfield.setText(currentUser.getPhone());
+                break;
+            case 4:
+                textfield.setText(currentUser.getEmail());
+                break;
+            case 5:
+                textfield.setText(currentUser.getAddress());
+                break;
+        }
     }
 
     @Override

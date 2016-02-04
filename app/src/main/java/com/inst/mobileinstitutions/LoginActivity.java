@@ -61,6 +61,7 @@ import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 
 import rx.Subscriber;
 import rx.functions.Action1;
@@ -267,7 +268,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
                         @Override
                         public void call(User user) {
                             APICredentials.setLoggedUser(user);
-                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this, FormListActivity.class));
                             showProgress(false);
                         }
                     });

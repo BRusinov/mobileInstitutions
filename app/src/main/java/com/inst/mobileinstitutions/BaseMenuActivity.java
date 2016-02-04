@@ -33,6 +33,8 @@ public class BaseMenuActivity extends AppCompatActivity {
         Boolean noUser = (APICredentials.getLoggedUser() == null);
         menu.setGroupVisible(R.id.unlogged_group, noUser);
         menu.setGroupVisible(R.id.logged_group, !noUser);
+        if(!noUser && APICredentials.getLoggedUser().isInstitution())
+            menu.findItem(R.id.profile_menu_item).setVisible(false);
         return true;
     }
 
@@ -71,7 +73,7 @@ public class BaseMenuActivity extends AppCompatActivity {
             case R.id.logout_menu_item:
                 ProfileActivity logout = new ProfileActivity();
                 logout.Logout(this);
-                startActivity(new Intent(BaseMenuActivity.this, HomeActivity.class));
+                //startActivity(new Intent(BaseMenuActivity.this, HomeActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
