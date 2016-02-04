@@ -44,6 +44,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
+import com.inst.mobileinstitutions.API.APICall;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -215,6 +217,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            APICall.signUp(email, password);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
             //startActivity(new Intent(LoginActivity.this, SettingsActivity.class));

@@ -111,14 +111,14 @@ public class FormFragment extends android.support.v4.app.Fragment {
             switch(field.getTypeName()){
                 case "textfield":
                     EditText text = new EditText(getActivity());
-                    text.setHint(field.getDescription());
+                    text.setHint(field.getName());
                     mFormHolder.addView(text);
                     setAutofill(text, field);
                     break;
 
                 case "textarea":
                     EditText textarea = new EditText(getActivity());
-                    textarea.setHint(field.getDescription());
+                    textarea.setHint(field.getName());
                     mFormHolder.addView(textarea);
                     break;
 
@@ -126,7 +126,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     Spinner dropdown = new Spinner(getActivity());
                     ArrayAdapter<FieldOption> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_list_item, field.getFieldOptions());
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerArrayAdapter.add(new FieldOption(field.getDescription()));
+                    spinnerArrayAdapter.add(new FieldOption(field.getName()));
                     dropdown.setAdapter(spinnerArrayAdapter);
                     dropdown.setSelection(spinnerArrayAdapter.getCount()-1);
                     mFormHolder.addView(dropdown);
@@ -145,7 +145,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
                 case "email":
                     EditText email = new EditText(getActivity());
                     email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                    email.setHint(field.getDescription());
+                    email.setHint(field.getName());
                     mFormHolder.addView(email);
                     setAutofill(email, field);
                     break;
@@ -191,6 +191,8 @@ public class FormFragment extends android.support.v4.app.Fragment {
 
     private void setAutofill(EditText textfield, Field field){
         User currentUser = APICredentials.getLoggedUser();
+        if(currentUser == null)
+            return;
         switch (field.getAutofill()){
             case 0:
                 textfield.setText(currentUser.getFirst_name());

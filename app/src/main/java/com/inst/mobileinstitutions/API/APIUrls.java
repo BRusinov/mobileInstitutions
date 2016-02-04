@@ -67,8 +67,7 @@ public interface APIUrls {
     @FormUrlEncoded
     Observable<JsonObject> login(@Field("email") String email, @Field("password") String password);*/
 
-    //WIP
-    @POST("/api/sign_up")
+    @POST("/api/sign_up/")
     @FormUrlEncoded
     Observable<JsonObject> register(@Field("email") String email, @Field("password") String password);
 

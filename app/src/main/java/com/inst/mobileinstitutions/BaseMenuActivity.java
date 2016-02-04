@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
@@ -86,6 +87,7 @@ public class BaseMenuActivity extends AppCompatActivity {
                 .setMessage("Сигурни ли сте, че искате да излезете от профила си?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        APICall.signOut();
                         context.startActivity(new Intent(context, HomeActivity.class));
                     }
                 })
