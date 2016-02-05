@@ -324,7 +324,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous registration task used to authenticate
      * the user.
      */
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {

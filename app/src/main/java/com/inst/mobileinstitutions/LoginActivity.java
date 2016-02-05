@@ -40,6 +40,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -88,6 +89,9 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
     private View mProgressView;
     private View mLoginFormView;
     private TextView info;
+    private static final String CHAR_LIST =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    private static final int RANDOM_STRING_LENGTH = 10;
 //    private LoginButton loginButton;
     public CallbackManager callbackManager;
 
@@ -288,6 +292,29 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
         }
     }
 
+
+    public String generateRandomString(){
+
+        StringBuffer randStr = new StringBuffer();
+        for(int i=0; i<RANDOM_STRING_LENGTH; i++){
+            int number = getRandomNumber();
+            char ch = CHAR_LIST.charAt(number);
+            randStr.append(ch);
+        }
+        return randStr.toString();
+    }
+
+    private int getRandomNumber() {
+        int randomInt = 0;
+        Random randomGenerator = new Random();
+        randomInt = randomGenerator.nextInt(CHAR_LIST.length());
+        if (randomInt - 1 == -1) {
+            return randomInt;
+        } else {
+            return randomInt - 1;
+        }
+    }
+
     private void loginError(){
         Toast.makeText(this, "Грешна комбинация на име/парола", Toast.LENGTH_LONG).show();
     }
@@ -312,8 +339,22 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
                 .setView(email)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
                         // PUSH notification will be implemented here
+                        EditText TO = email;
+                        Intent emailIntent= new Intent(Intent.ACTION_SEND);
+                        emailIntent.setData(Uri.parse("mailto:"));
+                        emailIntent.setType("text/plan");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO.toString());
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Забравена парола");
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, generateRandomString());
+                        try {
+                            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                            finish();
+                        }
+                        catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(LoginActivity.this, "Няма регистриран потребител с такъв email адрес!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
