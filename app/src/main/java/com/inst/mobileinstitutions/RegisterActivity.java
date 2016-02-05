@@ -68,7 +68,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private UserRegisterTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -90,7 +90,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptRegister();
                     return true;
                 }
                 return false;
@@ -98,11 +98,11 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             }
         });
         // Sign in button for regular users
-        Button mEmailSignInButton = (Button) findViewById(R.id.register_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegister();
             }
         });
 
@@ -172,7 +172,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptRegister() {
         if (mAuthTask != null) {
             return;
         }
@@ -218,15 +218,9 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             // perform the user login attempt.
             showProgress(true);
             APICall.signUp(email, password);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserRegisterTask(email, password);
             mAuthTask.execute((Void) null);
-            //startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
         }
-    }
-
-    private void InstitutionLogin(){
-        //mAuthTask.execute((Void) null);
-        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
     }
 
     private boolean isEmailValid(String email) {
@@ -333,12 +327,12 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
 
-        UserLoginTask(String email, String password) {
+        UserRegisterTask(String email, String password) {
             mEmail = email;
             mPassword = password;
         }
