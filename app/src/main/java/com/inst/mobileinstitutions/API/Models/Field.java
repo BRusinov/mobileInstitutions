@@ -14,7 +14,7 @@ public class Field {
     private int type;
     private String html_name;
     private String description;
-    private String autofill;
+    private int autofill;
     private String required;
     private String validation_type;
     private String maximum;
@@ -26,6 +26,8 @@ public class Field {
     static final String[] FIELD_TYPES = {
         null, "textfield",  "textarea", "dropdown", "radio", "email", "file", "checkbox", "hidden"
     };
+
+    String[] autofills = {"-", "Първо име", "Фамилия", "Град", "Телефон", "Имейл", "Адрес"};
 
     public String getId() {
         return id;
@@ -39,8 +41,12 @@ public class Field {
         return html_name;
     }
 
-    public String getAutofill() {
+    public int getAutofill() {
         return autofill;
+    }
+
+    public String getAutofillString(){
+        return autofills[autofill + 1];
     }
 
     public int getType() {
@@ -81,6 +87,10 @@ public class Field {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAutofill(int autofill) {
+        this.autofill = autofill;
     }
 
     public String print(){

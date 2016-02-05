@@ -31,9 +31,11 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.LoginActivity;
 import com.inst.mobileinstitutions.R;
@@ -42,6 +44,8 @@ import com.ipaulpro.afilechooser.FileChooserActivity;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -107,13 +111,14 @@ public class FormFragment extends android.support.v4.app.Fragment {
             switch(field.getTypeName()){
                 case "textfield":
                     EditText text = new EditText(getActivity());
-                    text.setHint(field.getDescription());
+                    text.setHint(field.getName());
                     mFormHolder.addView(text);
+                    setAutofill(text, field);
                     break;
 
                 case "textarea":
                     EditText textarea = new EditText(getActivity());
-                    textarea.setHint(field.getDescription());
+                    textarea.setHint(field.getName());
                     mFormHolder.addView(textarea);
                     break;
 
@@ -121,7 +126,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
                     Spinner dropdown = new Spinner(getActivity());
                     ArrayAdapter<FieldOption> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_list_item, field.getFieldOptions());
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerArrayAdapter.add(new FieldOption(field.getDescription()));
+                    spinnerArrayAdapter.add(new FieldOption(field.getName()));
                     dropdown.setAdapter(spinnerArrayAdapter);
                     dropdown.setSelection(spinnerArrayAdapter.getCount()-1);
                     mFormHolder.addView(dropdown);
@@ -140,8 +145,9 @@ public class FormFragment extends android.support.v4.app.Fragment {
                 case "email":
                     EditText email = new EditText(getActivity());
                     email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                    email.setHint(field.getDescription());
+                    email.setHint(field.getName());
                     mFormHolder.addView(email);
+                    setAutofill(email, field);
                     break;
 
                 case "file":
@@ -181,6 +187,32 @@ public class FormFragment extends android.support.v4.app.Fragment {
         Intent target = FileUtils.createGetContentIntent();
         Intent intent = Intent.createChooser(target, "pesho");
         startActivityForResult(intent, request_code);
+    }
+
+    private void setAutofill(EditText textfield, Field field){
+        User currentUser = APICredentials.getLoggedUser();
+        if(currentUser == null)
+            return;
+        switch (field.getAutofill()){
+            case 0:
+                textfield.setText(currentUser.getFirst_name());
+                break;
+            case 1:
+                textfield.setText(currentUser.getLast_name());
+                break;
+            case 2:
+                textfield.setText(currentUser.getCity());
+                break;
+            case 3:
+                textfield.setText(currentUser.getPhone());
+                break;
+            case 4:
+                textfield.setText(currentUser.getEmail());
+                break;
+            case 5:
+                textfield.setText(currentUser.getAddress());
+                break;
+        }
     }
 
     @Override

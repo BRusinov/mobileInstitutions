@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Finished extends AppCompatActivity {
+public class Finished extends BaseMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

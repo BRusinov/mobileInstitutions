@@ -44,6 +44,16 @@
         <item>file</item>
         <item>checkbox</item>
     </string-array>
+    <!-- autofill types -->
+    <string-array name="form_autofill_types">
+        <item>-</item>
+        <item>Първо име</item>
+        <item>Фамилия</item>
+        <item>Град</item>
+        <item>Телефон</item>
+        <item>Имейл</item>
+        <item>Адрес</item>
+    </string-array>
     <!-- status types -->
     <string-array name="complaint_status_types">
         <item>Отхвърлена</item>
@@ -117,4 +127,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_test">test</string>
+    <string name="title_activity_base_menu">BaseMenuActivity</string>
 </resources>

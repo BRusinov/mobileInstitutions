@@ -66,29 +66,6 @@ public class APICall {
         return service;
     }
 
-    //WIP
-    public static void signUp(String email, String password){
-        service.register(email, password)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JsonObject>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.w("regerror", e);
-                    }
-
-                    @Override
-                    public void onNext(JsonObject response) {
-                        Log.w("regsuccess", response.toString());
-                    }
-                });
-    }
-
     public static Observable<User> getUserByEmail(String email){
         return service.getUsersByEmail(email, format)
                 .subscribeOn(Schedulers.newThread())
@@ -184,6 +161,18 @@ public class APICall {
     public static void signOut(){
         signIn("test", "password");
         APICredentials.setLoggedUser(null);
+    }
+
+    public static void signUp(String email, String password){
+        service.register(email, password)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<JsonObject>() {
+                    @Override
+                    public void call(JsonObject jsonObject) {
+                        Log.w("complete", "success");
+                    }
+                });
     }
 }
 

@@ -17,7 +17,7 @@ import rx.Subscriber;
 import rx.functions.Action1;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,37 +78,5 @@ public class HomeActivity extends AppCompatActivity {
         // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_app, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            case R.id.login:
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                return true;
-            case R.id.register:
-                startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
-                return true;
-            case R.id.complaints:
-                startActivity(new Intent(HomeActivity.this, ComplaintListActivity.class));
-                return true;
-            case R.id.forms:
-                startActivity(new Intent(HomeActivity.this, FormListActivity.class));
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
 }

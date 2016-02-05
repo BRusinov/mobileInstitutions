@@ -130,17 +130,26 @@ public class CreateEditFormFragment extends Fragment {
 
 
         Spinner fieldType = new Spinner(getActivity());
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.field_types_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        fieldType.setAdapter(adapter);
+        ArrayAdapter<CharSequence> fieldTypeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.field_types_array, android.R.layout.simple_spinner_item);
+        fieldTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fieldType.setAdapter(fieldTypeAdapter);
+
+        final Spinner autofillType = new Spinner(getActivity());
+        final ArrayAdapter<CharSequence> autofillTypeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.form_autofill_types, android.R.layout.simple_spinner_item);
+        autofillTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        autofillType.setAdapter(autofillTypeAdapter);
+
         fieldType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 if (item.equals("dropdown") || item.equals("radio")) {
                     fieldOptionsLayout.setVisibility(View.VISIBLE);
+                } else if (item.equals("textfield") || item.equals("email")) {
+                    autofillType.setVisibility(View.VISIBLE);
                 } else {
                     fieldOptionsLayout.setVisibility(View.GONE);
+                    autofillType.setVisibility(View.GONE);
                 }
             }
 
@@ -151,10 +160,16 @@ public class CreateEditFormFragment extends Fragment {
 
         fieldName.setTag("name");
         fieldLayout.addView(fieldName);
+
         fieldType.setTag("type");
         fieldLayout.addView(fieldType);
+
+        autofillType.setTag("autofill");
+        fieldLayout.addView(autofillType);
+
         fieldRequired.setTag("required");
         fieldLayout.addView(fieldRequired);
+
         fieldOptionsHolder.setTag("fieldOptions");
         fieldLayout.addView(fieldOptionsLayout);
 
@@ -187,7 +202,7 @@ public class CreateEditFormFragment extends Fragment {
                 if(!mFormTitle.getText().toString().isEmpty())
                     mForm.setName(mFormTitle.getText().toString());
                 else
-                    Toast.makeText(getActivity(), "GIVE ME A NAME!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "there's a form field out there without a name", Toast.LENGTH_LONG).show();
                 for(int i=1; i<mFormHolder.getChildCount(); i+=2){
                     handleField((LinearLayout) mFormHolder.getChildAt(i));
                 }
@@ -206,7 +221,9 @@ public class CreateEditFormFragment extends Fragment {
         String fieldName = ((EditText) fieldHolder.findViewWithTag("name")).getText().toString();
         Boolean fieldRequired = ((CheckBox) fieldHolder.findViewWithTag("required")).isEnabled();
         String fieldType = ((Spinner) fieldHolder.findViewWithTag("type")).getSelectedItem().toString();
+        int autofill = ((Spinner) fieldHolder.findViewWithTag("autofill")).getSelectedItemPosition() - 1;
         Field field = new Field(fieldName, fieldRequired, fieldType);
+        field.setAutofill(autofill);
         LinearLayout fieldOptionsHolder = (LinearLayout) fieldHolder.findViewWithTag("fieldOptions");
         for(int i=0; i<fieldOptionsHolder.getChildCount(); i++){
             String newOption = ((EditText) fieldOptionsHolder.getChildAt(i)).getText().toString();
