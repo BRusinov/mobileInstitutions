@@ -4,6 +4,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    packagingOptions{
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+
     defaultConfig {
         applicationId "com.inst.mobileinstitutions"
         minSdkVersion 16
