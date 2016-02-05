@@ -385,7 +385,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
         message.setFrom(new InternetAddress("podaisignal.herokuapp.com","ПодайСигнал"));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(email, email));
         message.setSubject(subject);
-        message.setText(messageBody);
+        message.setText("Изпращаме Ви email с генерирана нова парола за Вашия акаунт в podaisignal.herokuapp.com!\n"+messageBody);
         return message;
     }
     private class SendMailTask extends AsyncTask<Message, Void, Void> {
