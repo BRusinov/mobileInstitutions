@@ -88,6 +88,7 @@ public class BaseMenuActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         APICall.signOut();
+                        //LoginManager.getInstance().logOut();
                         context.startActivity(new Intent(context, HomeActivity.class));
                     }
                 })
