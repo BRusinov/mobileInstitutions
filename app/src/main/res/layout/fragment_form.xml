@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -25,20 +25,25 @@
                     android:id="@+id/form_holder_layout">
                 </LinearLayout>
                 <Button
+                    android:id="@+id/take_photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Снимай с камера"
-                    android:layout_alignParentBottom="true"/>
+                    android:text="Снимай с камера"/>
+                <ImageView
+                    android:id="@+id/photo_image"
+                    android:contentDescription="will vary. image taken from camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:src="@drawable/ic_file" />
                 <Button
                     android:id="@+id/form_submit_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/formSubmitButtonText"
-
- />
+                    android:text="@string/formSubmitButtonText" />
 
             </LinearLayout>
         </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

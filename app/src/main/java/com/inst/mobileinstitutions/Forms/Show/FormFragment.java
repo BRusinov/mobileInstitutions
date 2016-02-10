@@ -1,9 +1,11 @@
 package com.inst.mobileinstitutions.Forms.Show;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RadioButton;
@@ -67,10 +70,14 @@ public class FormFragment extends android.support.v4.app.Fragment {
     private LinearLayout mFormHolder;
     private String mFormId;
     private Button mSubmitButton;
+    private Button mCameraButton;
+    private ImageView mImage;
+    private Intent next_i;
 
     private List<String> fileUris = new ArrayList<>();
     private List<String> fieldHtmlNames = new ArrayList<>();
     private List<String> fileNames = new ArrayList<>();
+
 
     private final int FILE_CHOOSER_REQUEST_CODE = 42;
     private final int PERMISSION_BEGGING_REQUEST_CONSTANT = 234;
@@ -94,6 +101,8 @@ public class FormFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_form, parent, false);
         mFormTitle = (TextView)v.findViewById(R.id.form_id_text_field);
         mFormHolder = (LinearLayout)v.findViewById(R.id.form_holder_layout);
+        mCameraButton=(Button) v.findViewById(R.id.take_photo);
+        mImage= (ImageView) v.findViewById(R.id.photo_image);
         mSubmitButton = (Button)v.findViewById(R.id.form_submit_button);
         APICall.getResource("form", Integer.valueOf(mFormId)).subscribe(new Action1<Form>() {
             @Override
@@ -103,8 +112,20 @@ public class FormFragment extends android.support.v4.app.Fragment {
                 setupSubmitButton(form.getId(), "user0@gmail.com");
             }
         });
+        mCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePicture();
+            }
+        });
         return v;
     }
+
+    private void takePicture(){
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
 
     private void populateForm(List<Field> fields) {
         for (Field field : fields) {
