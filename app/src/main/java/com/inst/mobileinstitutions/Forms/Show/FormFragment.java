@@ -49,13 +49,16 @@ import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 import android.location.Address;
 import android.location.Geocoder;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import rx.Observable;
@@ -74,7 +77,8 @@ public class FormFragment extends android.support.v4.app.Fragment {
     private Button mSubmitButton;
     private Button mCameraButton;
     private ImageView mImage;
-    private Intent next_i;
+    private Button mUserLocation;
+    private TextView mUserAddress;
 
     private List<String> fileUris = new ArrayList<>();
     private List<String> fieldHtmlNames = new ArrayList<>();
@@ -103,6 +107,8 @@ public class FormFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_form, parent, false);
         mFormTitle = (TextView)v.findViewById(R.id.form_id_text_field);
         mFormHolder = (LinearLayout)v.findViewById(R.id.form_holder_layout);
+        mUserLocation= (Button) v.findViewById(R.id.location);
+        mUserAddress=(TextView) v.findViewById(R.id.address);
         mCameraButton=(Button) v.findViewById(R.id.take_photo);
         mImage= (ImageView) v.findViewById(R.id.photo_image);
         mSubmitButton = (Button)v.findViewById(R.id.form_submit_button);
@@ -120,8 +126,16 @@ public class FormFragment extends android.support.v4.app.Fragment {
                 takePicture();
             }
         });
+        mUserLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                getUserLocationAddress();
+            }
+        });
         return v;
     }
+
+
 
     private void takePicture(){
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
