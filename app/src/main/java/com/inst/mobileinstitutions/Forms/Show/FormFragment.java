@@ -245,6 +245,12 @@ public class FormFragment extends android.support.v4.app.Fragment {
         } catch (Exception ex) {
             Log.w("aFileChooserException", ex);
         }
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap image = (Bitmap) data.getExtras().get("data");
+                mImage.setImageBitmap(image);
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
