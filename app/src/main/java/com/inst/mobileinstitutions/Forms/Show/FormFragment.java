@@ -3,9 +3,12 @@ package com.inst.mobileinstitutions.Forms.Show;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,6 +83,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
     private Button mUserLocation;
     private TextView mUserAddress;
 
+
     private List<String> fileUris = new ArrayList<>();
     private List<String> fieldHtmlNames = new ArrayList<>();
     private List<String> fileNames = new ArrayList<>();
@@ -111,6 +115,7 @@ public class FormFragment extends android.support.v4.app.Fragment {
         mUserAddress=(TextView) v.findViewById(R.id.address);
         mCameraButton=(Button) v.findViewById(R.id.take_photo);
         mImage= (ImageView) v.findViewById(R.id.photo_image);
+
         mSubmitButton = (Button)v.findViewById(R.id.form_submit_button);
         APICall.getResource("form", Integer.valueOf(mFormId)).subscribe(new Action1<Form>() {
             @Override
@@ -129,13 +134,22 @@ public class FormFragment extends android.support.v4.app.Fragment {
         mUserLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getUserLocationAddress();
+                getUserLocationAddress();
             }
         });
         return v;
     }
 
-
+    public void getUserLocationAddress(){
+        LocationManager lm = (LocationManager)getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+    }
 
     private void takePicture(){
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
