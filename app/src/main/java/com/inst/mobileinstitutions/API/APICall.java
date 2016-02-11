@@ -58,7 +58,13 @@ public class APICall {
                         .getMethod(urlMethodName, String.class)
                         .invoke(service, format)))
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.w("error", throwable);
+                    }
+                });
 
     }
 
