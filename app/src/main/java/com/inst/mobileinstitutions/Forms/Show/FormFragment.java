@@ -52,6 +52,7 @@ import com.ipaulpro.afilechooser.FileChooserActivity;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
+import android.location.LocationListener;
 import android.location.Address;
 import android.location.Geocoder;
 import android.widget.Toast;
@@ -72,7 +73,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class FormFragment extends android.support.v4.app.Fragment {
+public class FormFragment extends android.support.v4.app.Fragment{
 
     private static final String ARG_FORM_ID = "form_id";
 
@@ -143,29 +144,69 @@ public class FormFragment extends android.support.v4.app.Fragment {
     }
 
     private void getUserLocationAddress(){
+        LocationListener locationListener=new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
         LocationManager locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
         if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                               && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                     return;
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
         Location location = locationManager.getLastKnownLocation(provider);
 
         if(location!=null){
+
             onLocationChanged(location);
         }
-//        locationManager.requestLocationUpdates(provider, 20000, 0, this);
+        locationManager.requestLocationUpdates(provider, 20000, 10, locationListener);
     }
     public void onLocationChanged(Location location) {
-
-        // Getting latitude of the current location
         double latitude = location.getLatitude();
-
-        // Getting longitude of the current location
         double longitude = location.getLongitude();
-        Toast.makeText(getActivity(), "Latitude: "+latitude+ "Longitute"+longitude, Toast.LENGTH_SHORT).show();
+        Geocoder geocoder= new Geocoder(getActivity().getApplicationContext(), Locale.ENGLISH);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude,longitude, 1);
+            if(addresses != null) {
+                Address fetchedAddress = addresses.get(0);
+                StringBuilder strAddress = new StringBuilder();
+                for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                }
+                mUserAddress.setText("Аз съм на : " +strAddress.toString());
+            }
+
+            else
+                mUserLocation.setText("Не е намерена локация!");
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getActivity().getApplicationContext(),"Не може да бъде намерена локация!", Toast.LENGTH_LONG).show();
+        }
     }
+
+
+
 
 
     private void takePicture(){
