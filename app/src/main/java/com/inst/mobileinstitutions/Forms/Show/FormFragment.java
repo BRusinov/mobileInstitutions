@@ -125,7 +125,8 @@ public class FormFragment extends android.support.v4.app.Fragment{
             public void call(Form form) {
                 mFormTitle.setText(form.getName());
                 populateForm(form.getFields());
-                setupSubmitButton(form.getId(), APICredentials.getLoggedUser().getEmail());
+                User user = APICredentials.getLoggedUser();
+                setupSubmitButton(form.getId(), user == null ? "" : user.getEmail());
             }
         });
         mCameraButton.setOnClickListener(new View.OnClickListener() {
