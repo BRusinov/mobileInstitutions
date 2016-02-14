@@ -88,8 +88,20 @@ public class CreateEditFormFragment extends Fragment {
     }
 
     private void setFieldEdit(Field field){
-        final Button fieldButton = new Button(getActivity());
-        fieldButton.setText(field.getName());
+        final LinearLayout fieldButtonsLayout = new LinearLayout(getActivity());
+        fieldButtonsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        final Button fieldExpandButton = new Button(getActivity());
+        fieldExpandButton.setText(field.getName());
+        fieldExpandButton.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f));
+
+        final Button deleteFieldButton = new Button(getActivity());
+        deleteFieldButton.setText("Изтрий");
+        deleteFieldButton.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
+
+        fieldButtonsLayout.addView(fieldExpandButton);
+        fieldButtonsLayout.addView(deleteFieldButton);
+
 
         final LinearLayout fieldLayout = new LinearLayout(getActivity());
         int fieldId = field.getId() == null ? -1 : Integer.parseInt(field.getId());
@@ -174,14 +186,22 @@ public class CreateEditFormFragment extends Fragment {
         fieldLayout.addView(fieldOptionsLayout);
 
         fieldLayout.setVisibility(View.GONE);
-        mFormHolder.addView(fieldButton);
+        mFormHolder.addView(fieldButtonsLayout);
         mFormHolder.addView(fieldLayout);
 
-        fieldButton.setOnClickListener(new View.OnClickListener() {
+        fieldExpandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int newVisibility = fieldLayout.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
                 fieldLayout.setVisibility(newVisibility);
+            }
+        });
+
+        deleteFieldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFormHolder.removeView(fieldLayout);
+                mFormHolder.removeView(fieldButtonsLayout);
             }
         });
     }
