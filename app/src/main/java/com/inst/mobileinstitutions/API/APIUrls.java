@@ -17,6 +17,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
+import retrofit.http.Part;
 import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -53,6 +54,7 @@ public interface APIUrls {
     @POST("/api/form_submit/{form_id}/")
     @Multipart
     Observable<JsonObject> submitForm(@Path("form_id") int form_id,
+                                      @Part("email") String email,
                                       @PartMap Map<String, String> fields,
                                       @PartMap Map<String, RequestBody> files);
 

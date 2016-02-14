@@ -44,7 +44,9 @@ import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
 import com.inst.mobileinstitutions.API.Models.User;
+import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+import com.inst.mobileinstitutions.HomeActivity;
 import com.inst.mobileinstitutions.LoginActivity;
 import com.inst.mobileinstitutions.R;
 import com.inst.mobileinstitutions.SingleFragmentActivity;
@@ -125,8 +127,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
             public void call(Form form) {
                 mFormTitle.setText(form.getName());
                 populateForm(form.getFields());
-                User user = APICredentials.getLoggedUser();
-                setupSubmitButton(form.getId(), user == null ? "" : user.getEmail());
+                setupSubmitButton(form.getId(), APICredentials.getLoggedUser() != null ? APICredentials.getUsername() : null);
             }
         });
         mCameraButton.setOnClickListener(new View.OnClickListener() {
@@ -385,7 +386,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
                 APICall.submitForm(formId, email, fields, requestFiles).subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
-                        startActivity(new Intent(getActivity(), FormListActivity.class));
+                        startActivity(new Intent(getActivity(), HomeActivity.class));
                     }
 
                     @Override

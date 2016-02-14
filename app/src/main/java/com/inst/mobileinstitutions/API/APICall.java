@@ -62,7 +62,7 @@ public class APICall {
                 .doOnError(new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.w("error", throwable);
+                        Log.w("getError", throwable);
                     }
                 });
 
@@ -101,9 +101,9 @@ public class APICall {
     }
 
     public static Observable<JsonObject> submitForm(String formId, String email, Map<String, String> fields, Map<String, RequestBody> files){
-        fields.put("form_id", formId);
-        fields.put("email", null);
-        return service.submitForm(Integer.parseInt(formId), fields, files)
+        fields.put("email", email);
+        //fields.put("form_id", formId);
+        return service.submitForm(Integer.parseInt(formId), email, fields, files)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

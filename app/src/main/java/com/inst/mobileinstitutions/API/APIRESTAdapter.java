@@ -22,6 +22,7 @@ public class APIRESTAdapter {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(endPoint)
+                .addConverterFactory(new GsonStringConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(httpClient)

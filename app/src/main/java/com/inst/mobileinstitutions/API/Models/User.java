@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class User {
     private String id;
+    private String django_user_id;
     private int permission_level;
     private String first_name;
     private String last_name;
