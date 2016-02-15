@@ -83,6 +83,7 @@ public class ComplaintEditFragment extends Fragment {
             public void onClick(View v) {
                 int status = statusSpinner.getSelectedItemPosition();
                 APICall.updateComplaint(status, mComplaintId);
+
             }
         });
 
