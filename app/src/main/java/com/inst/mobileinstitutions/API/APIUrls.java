@@ -42,15 +42,19 @@ public interface APIUrls {
     @GET("/api/users/get_by_email/{email}/")
     Observable<User> getUsersByEmail(@Path("email") String email, @Query("format") String format);
 
-    @PUT("/api/users/{id}/")
-    @Multipart
-    Observable<JsonObject> updateUser(@Path("id") String id, @PartMap() Map<String, String> userInfo);
-
     @GET("api/fields/")
     Observable<List<Field>> getFields(@Query("format") String format);
 
     @GET("api/fields/{id}")
     Observable<Field> getField(@Path("id") int id, @Query("format") String format);
+
+    @PUT("/api/users/{id}/")
+    @Multipart
+    Observable<JsonObject> updateUser(@Path("id") String id, @PartMap() Map<String, String> userInfo);
+
+    @PUT("/api/complaints/{id}/")
+    @Multipart
+    Observable<JsonObject> updateComplaintStatus(@Path("id") int id, @Part("status") int status);
 
     @POST("/api/form_submit/{form_id}/")
     @Multipart

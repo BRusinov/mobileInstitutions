@@ -82,7 +82,7 @@ public class ComplaintEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int status = statusSpinner.getSelectedItemPosition();
-                APICall.updateComplaint(status, mComplaintId);
+                APICall.updateComplaint(mComplaintId, status);
 
             }
         });

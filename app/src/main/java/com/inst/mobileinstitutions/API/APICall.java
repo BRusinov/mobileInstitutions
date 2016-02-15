@@ -108,10 +108,26 @@ public class APICall {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static void updateComplaint(int status, String complaintId){
-        /*service.updateComplaint(complaintId, status)
+    public static void updateComplaint(String id, int status){
+        service.updateComplaintStatus(Integer.parseInt(id), status)
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());*/
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.w("jsonOutput", "complete");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.w("JsonError", e);
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        Log.w("jsonOutput", jsonObject.toString());
+                    }
+                });
     }
 
     public static void createForm(Form createdForm){
@@ -121,7 +137,7 @@ public class APICall {
                 .subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
-                        Log.w("jsonOutput", "complet");
+                        Log.w("jsonOutput", "complete");
                     }
 
                     @Override
