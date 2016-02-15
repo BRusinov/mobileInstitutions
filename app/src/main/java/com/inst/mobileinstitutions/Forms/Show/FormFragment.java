@@ -202,7 +202,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
                 for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
                     strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
                 }
-                mUserAddress.setText("Вие се намирате на " +strAddress.toString());
+                mUserAddress.setText("Вие се намирате на следният адрес:\n " +strAddress.toString());
                 if(address!=null)
                 address.setText(strAddress.toString());
             }
