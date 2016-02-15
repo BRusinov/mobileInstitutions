@@ -174,6 +174,8 @@ public class FormFragment extends android.support.v4.app.Fragment{
                 && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            Toast.makeText(getActivity().getApplicationContext(),"GPS на телефона е изключен!", Toast.LENGTH_LONG).show();
         List<String> providers = locationManager.getProviders(criteria,true);
         Location bestLocation = null;
         for (String provider : providers) {
