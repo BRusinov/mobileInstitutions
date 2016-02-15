@@ -87,6 +87,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
     private ImageView mImage;
     private Button mUserLocation;
     private TextView mUserAddress;
+    private EditText address;
 
 
     private List<String> fileUris = new ArrayList<>();
@@ -169,18 +170,25 @@ public class FormFragment extends android.support.v4.app.Fragment{
         };
         LocationManager locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
         if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        if(location!=null){
-
-            onLocationChanged(location);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            Toast.makeText(getActivity().getApplicationContext(),"GPS на телефона е изключен!", Toast.LENGTH_LONG).show();
+        List<String> providers = locationManager.getProviders(criteria,true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = locationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                bestLocation = l;
+                onLocationChanged(l);
+                locationManager.requestLocationUpdates(provider, 20000, 0, locationListener);
+            }
         }
-        locationManager.requestLocationUpdates(provider, 20000, 10, locationListener);
     }
     public void onLocationChanged(Location location) {
         double latitude = location.getLatitude();
@@ -194,7 +202,9 @@ public class FormFragment extends android.support.v4.app.Fragment{
                 for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
                     strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
                 }
-                mUserAddress.setText("Аз съм на : " +strAddress.toString());
+                mUserAddress.setText("Вие се намирате на следният адрес:\n " +strAddress.toString());
+                if(address!=null)
+                address.setText(strAddress.toString());
             }
 
             else
@@ -302,6 +312,8 @@ public class FormFragment extends android.support.v4.app.Fragment{
 
     private void setAutofill(EditText textfield, Field field){
         User currentUser = APICredentials.getLoggedUser();
+        if(field.getAutofill()==5)
+            address=textfield;
         if(currentUser == null)
             return;
         switch (field.getAutofill()){
