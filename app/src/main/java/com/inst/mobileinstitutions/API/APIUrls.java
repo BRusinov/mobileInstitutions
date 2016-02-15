@@ -43,7 +43,8 @@ public interface APIUrls {
     Observable<User> getUsersByEmail(@Path("email") String email, @Query("format") String format);
 
     @PUT("/api/users/{id}/")
-    Observable<JsonObject> updateUser(@Path("id") String id, @QueryMap() Map<String, String> userInfo);
+    @Multipart
+    Observable<JsonObject> updateUser(@Path("id") String id, @PartMap() Map<String, String> userInfo);
 
     @GET("api/fields/")
     Observable<List<Field>> getFields(@Query("format") String format);
@@ -59,15 +60,15 @@ public interface APIUrls {
                                       @PartMap Map<String, RequestBody> files);
 
     @POST("api/forms/")
-    Observable<JsonObject> createForm(@Body Form form_body);
+    @Multipart
+    Observable<JsonObject> createForm(@Part("name") String form_name,
+                                      @Part("field_set") List<com.inst.mobileinstitutions.API.Models.Field> fields);
 
     @PUT("api/forms/{form_id}/")
-    Observable<JsonObject> updateForm(@Path("form_id") int form_id, @Body Form form_body);
-
-    /*
-    @POST("/accounts/login")
-    @FormUrlEncoded
-    Observable<JsonObject> login(@Field("email") String email, @Field("password") String password);*/
+    @Multipart
+    Observable<JsonObject> updateForm(@Path("form_id") int form_id,
+                                      @Part("name") String form_name,
+                                      @Part("field_set") List<com.inst.mobileinstitutions.API.Models.Field> fields);
 
     @POST("/api/sign_up/")
     @FormUrlEncoded

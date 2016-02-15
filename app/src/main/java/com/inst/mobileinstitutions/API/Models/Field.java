@@ -27,7 +27,7 @@ public class Field {
         null, "textfield",  "textarea", "dropdown", "radio", "email", "file", "checkbox", "hidden"
     };
 
-    String[] autofills = {"-", "Първо име", "Фамилия", "Град", "Телефон", "Имейл", "Адрес"};
+    static final String[] AUTOFILLS = {"-", "Първо име", "Фамилия", "Град", "Телефон", "Имейл", "Адрес"};
 
     public String getId() {
         return id;
@@ -46,7 +46,7 @@ public class Field {
     }
 
     public String getAutofillString(){
-        return autofills[autofill + 1];
+        return AUTOFILLS[autofill + 1];
     }
 
     public int getType() {

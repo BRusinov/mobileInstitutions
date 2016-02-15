@@ -78,7 +78,7 @@ public class APICall {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static void updateUser(String id, Map<String, String> userInfo){
+    public static void updateUser(String id,Map<String, String> userInfo){
         service.updateUser(id, userInfo)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -115,7 +115,7 @@ public class APICall {
     }
 
     public static void createForm(Form createdForm){
-        service.createForm(createdForm)
+        service.createForm(createdForm.getName(), createdForm.getFields())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -137,7 +137,7 @@ public class APICall {
     }
 
     public static void updateForm(String id, Form updatedForm){
-        service.updateForm(Integer.parseInt(id), updatedForm)
+        service.updateForm(Integer.parseInt(id), updatedForm.getName(), updatedForm.getFields())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<JsonObject>() {
