@@ -54,12 +54,12 @@ public class ProfileActivity extends BaseMenuActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                comfirmPassword();
+                confirmPassword();
             }
         });
     }
 
-    private void comfirmPassword(){
+    private void confirmPassword(){
         final EditText password = new EditText(this);
         new AlertDialog.Builder(this)
                 .setTitle("Потвърдете паролата, за да запазите промените")
@@ -70,7 +70,7 @@ public class ProfileActivity extends BaseMenuActivity {
                         // need to implement password verification
                         if (APICredentials.getPassword().equals(password.getText().toString())) {
                             saveChanges();
-                            //startActivity(new Intent(ProfileActivity.this, ComplaintListActivity.class));
+                            startActivity(new Intent(ProfileActivity.this, ComplaintListActivity.class));
                         }
                     }
                 })
