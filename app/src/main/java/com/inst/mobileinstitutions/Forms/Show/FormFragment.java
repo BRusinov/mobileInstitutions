@@ -78,6 +78,7 @@ import rx.schedulers.Schedulers;
 public class FormFragment extends android.support.v4.app.Fragment{
 
     private static final String ARG_FORM_ID = "form_id";
+    private static final int REQUEST_CAMERA=0;
 
     private TextView mFormTitle;
     private LinearLayout mFormHolder;
@@ -223,7 +224,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
 
     private void takePicture(){
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent, REQUEST_CAMERA);
     }
 
 
