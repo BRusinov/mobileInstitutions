@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -23,8 +22,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -97,12 +94,23 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
 
             }
         });
-        // Sign in button for regular users
+        // Sign up button for regular users
         Button mRegisterButton = (Button) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegister();
+            }
+        });
+
+
+        // Sign up for institution
+        Button mInstitutionSignInButton= (Button) findViewById(R.id.institution_sign_in_button);
+        mInstitutionSignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // something when the user is institution
+                InstitutionLogin();
             }
         });
 
@@ -221,6 +229,11 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             mAuthTask = new UserRegisterTask(email, password);
             mAuthTask.execute((Void) null);
         }
+    }
+
+    private void InstitutionLogin(){
+        //mAuthTask.execute((Void) null);
+        startActivity(new Intent(RegisterActivity.this, InstitutionRegistration.class));
     }
 
     private boolean isEmailValid(String email) {
@@ -356,7 +369,7 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
                 }
             }
 
-            // TODO: register the new account here.
+            // TODO: register the sendit account here.
             return true;
         }
 

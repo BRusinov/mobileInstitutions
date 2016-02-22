@@ -6,8 +6,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -33,12 +31,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
 /**
  * A login screen that offers login via email/password.
  */
-public class InstitutionLogin extends BaseMenuActivity implements LoaderCallbacks<Cursor> {
+public class InstitutionRegistration extends BaseMenuActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -112,15 +108,15 @@ public class InstitutionLogin extends BaseMenuActivity implements LoaderCallback
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, sendit View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                            requestPermissions(sendit String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                         }
                     });
         } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+            requestPermissions(sendit String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }*/
         return false;
     }
@@ -189,12 +185,12 @@ public class InstitutionLogin extends BaseMenuActivity implements LoaderCallback
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            //startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
+            //startActivity(sendit Intent(InstitutionRegistration.this, InstitutionVerification.class));
         }
     }
 
     private void InstitutionLoginVerification(){
-        startActivity(new Intent(InstitutionLogin.this, InstitutionVerification.class));
+        startActivity(new Intent(InstitutionRegistration.this, InstitutionVerification.class));
     }
 
     private boolean isEmailValid(String email) {
@@ -291,7 +287,7 @@ public class InstitutionLogin extends BaseMenuActivity implements LoaderCallback
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(InstitutionLogin.this,
+                new ArrayAdapter<>(InstitutionRegistration.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -330,7 +326,7 @@ public class InstitutionLogin extends BaseMenuActivity implements LoaderCallback
                 }
             }
 
-            // TODO: register the new account here.
+            // TODO: register the sendit account here.
             return true;
         }
 

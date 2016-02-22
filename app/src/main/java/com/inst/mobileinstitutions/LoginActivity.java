@@ -135,22 +135,13 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
             }
         });
 
-        // Sign in button for institution users
-        Button mInstitutionSignInButton= (Button) findViewById(R.id.institution_sign_in_button);
-        mInstitutionSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // something when the user is institution
-                InstitutionLogin();
-            }
-        });
 
         // RegisterActivity button
         Button mRegister= (Button) findViewById(R.id.register);
         mRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Register();
+                register();
             }
         });
 
@@ -179,7 +170,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
         mForgotten.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ForgottenPassowrd();
+                forgottenPassword();
             }
         });
     }
@@ -279,7 +270,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
             APICall.getResource("complaints").subscribe(new Subscriber() {
                 @Override
                 public void onCompleted() {
-                    ///startActivity(new Intent(LoginActivity.this, ComplaintListActivity.class));
+                    ///startActivity(sendit Intent(LoginActivity.this, ComplaintListActivity.class));
                     APICall.getUserByEmail(APICredentials.getUsername()).subscribe(new Action1<User>() {
                         @Override
                         public void call(User user) {
@@ -332,18 +323,15 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
     }
 
 
-    private void InstitutionLogin(){
-        //mAuthTask.execute((Void) null);
-        startActivity(new Intent(LoginActivity.this, InstitutionLogin.class));
-    }
+
 
     //RegisterActivity button
 
-    private void Register(){
+    private void register(){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
     // AlertDialog
-    private void ForgottenPassowrd(){
+    private void forgottenPassword(){
         final EditText email= new EditText(this);
         new AlertDialog.Builder(this)
                 .setTitle("Забравена парола?")

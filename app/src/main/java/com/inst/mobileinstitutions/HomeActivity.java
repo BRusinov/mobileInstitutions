@@ -22,7 +22,7 @@ public class HomeActivity extends BaseMenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /*APICall.getResource("forms").subscribe(new Subscriber<List<Form>>() {
+        /*APICall.getResource("forms").subscribe(sendit Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
                 Log.w("homeDone", "doneIterating");
@@ -48,7 +48,7 @@ public class HomeActivity extends BaseMenuActivity {
         /*ContentResolver cR = HomeActivity.this.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
 
-        Uri myUri = Uri.fromFile(new File("/storage/1700-131C/Pictures/mypic.jpg"));
+        Uri myUri = Uri.fromFile(sendit File("/storage/1700-131C/Pictures/mypic.jpg"));
 
         String extension = MimeTypeMap.getFileExtensionFromUrl("/storage/1700-131C/Pictures/mypic.jpg");
         String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);

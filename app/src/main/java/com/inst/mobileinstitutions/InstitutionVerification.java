@@ -193,7 +193,7 @@ public class InstitutionVerification extends BaseMenuActivity implements LoaderC
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = sendit UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
         */
@@ -337,7 +337,7 @@ public class InstitutionVerification extends BaseMenuActivity implements LoaderC
                 }
             }
 
-            // TODO: register the new account here.
+            // TODO: register the sendit account here.
             return true;
         }
 

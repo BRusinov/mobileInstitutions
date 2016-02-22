@@ -93,7 +93,7 @@ public class LoginActivityFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView=(TextView)view.findViewById(R.id.text);
-        textView.setText("Не сте влезли в системата! ");
+        textView.setText("You are not logged in");
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setCompoundDrawables(null, null, null, null);
         loginButton.setReadPermissions("user_friends");
@@ -116,7 +116,7 @@ public class LoginActivityFragment extends Fragment {
 
         @Override
         public void onError(FacebookException e) {
-            Toast.makeText(getActivity(), "Няма връзка с интернет! \n"+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No internet connection. "+ e , Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -155,11 +155,11 @@ public class LoginActivityFragment extends Fragment {
         StringBuilder stringBuilder = new StringBuilder();
         if (profile != null) {
             stringBuilder.append("Logged In " + profile.getFirstName());
-            Toast.makeText(getActivity(), "Влезли сте като  "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
-//            Intent intent= new Intent(getActivity(),DashboardActivity.class);
+            Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
+//            Intent intent= sendit Intent(getActivity(),DashboardActivity.class);
 //            startActivityForResult(intent, 2);
         }else{
-            stringBuilder.append("Не сте влезли в системата!");
+            stringBuilder.append("You are not logged in");
         }
         return stringBuilder.toString();
     }

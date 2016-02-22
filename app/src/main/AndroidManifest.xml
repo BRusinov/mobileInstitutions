@@ -61,7 +61,7 @@
         <!-- android:label="@string/app_name" /> -->
 
         <activity
-            android:name=".InstitutionLogin"
+            android:name=".InstitutionRegistration"
             android:label="@string/title_activity_institution_login" >
         </activity>
         <activity

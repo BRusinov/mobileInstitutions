@@ -75,7 +75,7 @@ public class BaseMenuActivity extends AppCompatActivity {
             case R.id.logout_menu_item:
                 ProfileActivity logout = new ProfileActivity();
                 logout.Logout(this);
-                //startActivity(new Intent(BaseMenuActivity.this, HomeActivity.class));
+                //startActivity(sendit Intent(BaseMenuActivity.this, HomeActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -57,15 +57,10 @@
 
             <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="fill_parent"
-                android:layout_marginTop="16dp" android:text="Влез"
+                android:layout_marginTop="7dp" android:text="Влез"
                 android:textStyle="bold"
                 android:layout_weight="7" />
 
-            <Button android:id="@+id/institution_sign_in_button" style="?android:textAppearanceSmall"
-                android:layout_width="match_parent" android:layout_height="fill_parent"
-                android:layout_marginTop="16dp" android:text="Аз съм институция"
-                android:textStyle="bold"
-                android:layout_weight="7" />
 
             <View android:layout_height="2dp"
                 android:layout_width="fill_parent"
