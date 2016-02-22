@@ -339,7 +339,6 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
                 .setView(email)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // PUSH notification will be implemented here
                         String p=generateRandomString();
                         sendMail(email.getText().toString(),"Забравена парола",p);
 
