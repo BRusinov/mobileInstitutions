@@ -186,7 +186,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
             if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
                 bestLocation = l;
                 onLocationChanged(l);
-                locationManager.requestLocationUpdates(provider, 20000, 0, locationListener);
+                locationManager.requestLocationUpdates(provider, 20000, 10, locationListener);
             }
         }
     }
