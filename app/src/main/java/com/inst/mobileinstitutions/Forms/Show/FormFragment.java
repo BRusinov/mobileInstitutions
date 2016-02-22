@@ -187,7 +187,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
             if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
                 bestLocation = l;
                 onLocationChanged(l);
-                locationManager.requestLocationUpdates(provider, 500, 10, locationListener);
+                locationManager.requestLocationUpdates(provider, 20000, 10, locationListener);
             }
         }
     }
@@ -214,7 +214,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Toast.makeText(getActivity().getApplicationContext(),"Не може да бъде намерена локация!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Няма връзка с интернет!", Toast.LENGTH_LONG).show();
         }
     }
 
