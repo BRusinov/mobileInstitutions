@@ -131,48 +131,16 @@ public class APICall {
                 });
     }
 
-    public static void createForm(Form createdForm){
-        service.createForm(createdForm.getName(), createdForm.getFields())
+    public static Observable<JsonObject> createForm(Form createdForm){
+        return service.createForm(createdForm.getName(), createdForm.getFields())
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JsonObject>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.w("jsonOutput", "complete");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.w("JsonError", e);
-                    }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        Log.w("jsonOutput", jsonObject.toString());
-                    }
-                });
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static void updateForm(String id, Form updatedForm){
-        service.updateForm(Integer.parseInt(id), updatedForm.getName(), updatedForm.getFields())
+    public static Observable<JsonObject> updateForm(String id, Form updatedForm){
+        return service.updateForm(Integer.parseInt(id), updatedForm.getName(), updatedForm.getFields())
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JsonObject>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.w("jsonOutput", "complete");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.w("JsonError", e);
-                    }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        Log.w("jsonOutput", jsonObject.toString());
-                    }
-                });
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static void signIn(String username, String password){

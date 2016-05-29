@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
@@ -26,6 +27,7 @@ import com.inst.mobileinstitutions.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Subscriber;
 import rx.functions.Action1;
 
 public class CreateEditFormFragment extends Fragment {
@@ -230,13 +232,47 @@ public class CreateEditFormFragment extends Fragment {
                 }
 
                 if(mForm.getId() == null){
-                    APICall.createForm(mForm);
-                    startActivity(new Intent(getActivity(), HomeActivity.class));
-                    Toast.makeText(getActivity().getApplicationContext(), "Form created successfully", Toast.LENGTH_LONG).show();
+                    APICall.createForm(mForm).subscribe(new Subscriber<JsonObject>() {
+                        @Override
+                        public void onCompleted() {
+                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                            Toast.makeText(getActivity().getApplicationContext(), "Form created successfully", Toast.LENGTH_LONG).show();
+                            Log.w("jsonOutput", "complete");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                            Toast.makeText(getActivity().getApplicationContext(), "Error: Form might not have\nbeen created successfully", Toast.LENGTH_LONG).show();
+                            Log.w("JsonError", e);
+                        }
+
+                        @Override
+                        public void onNext(JsonObject jsonObject) {
+                            Log.w("jsonOutput", jsonObject.toString());
+                        }
+                    });
                 }else{
-                    APICall.updateForm(mFormId, mForm);
-                    startActivity(new Intent(getActivity(), HomeActivity.class));
-                    Toast.makeText(getActivity().getApplicationContext(), "Form updated successfully", Toast.LENGTH_LONG).show();
+                    APICall.updateForm(mFormId, mForm).subscribe(new Subscriber<JsonObject>() {
+                        @Override
+                        public void onCompleted() {
+                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                            Toast.makeText(getActivity().getApplicationContext(), "Form updated successfully", Toast.LENGTH_LONG).show();
+                            Log.w("jsonOutput", "complete");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                            Toast.makeText(getActivity().getApplicationContext(), "Error: Form might not have\n been updated successfully", Toast.LENGTH_LONG).show();
+                            Log.w("JsonError", e);
+                        }
+
+                        @Override
+                        public void onNext(JsonObject jsonObject) {
+                            Log.w("jsonOutput", jsonObject.toString());
+                        }
+                    });
                 }
             }
         });
