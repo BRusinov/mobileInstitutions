@@ -1,5 +1,6 @@
 package com.inst.mobileinstitutions.Forms.CreateEdit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Field;
 import com.inst.mobileinstitutions.API.Models.FieldOption;
 import com.inst.mobileinstitutions.API.Models.Form;
+import com.inst.mobileinstitutions.HomeActivity;
 import com.inst.mobileinstitutions.R;
 
 import java.util.ArrayList;
@@ -229,8 +231,12 @@ public class CreateEditFormFragment extends Fragment {
 
                 if(mForm.getId() == null){
                     APICall.createForm(mForm);
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                    Toast.makeText(getActivity().getApplicationContext(), "Form created successfully", Toast.LENGTH_LONG).show();
                 }else{
                     APICall.updateForm(mFormId, mForm);
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                    Toast.makeText(getActivity().getApplicationContext(), "Form updated successfully", Toast.LENGTH_LONG).show();
                 }
             }
         });
