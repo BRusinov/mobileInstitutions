@@ -1,7 +1,5 @@
 package com.inst.mobileinstitutions.API;
 
-import android.util.Log;
-
 import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.Models.User;
 
