@@ -403,14 +403,14 @@ public class FormFragment extends android.support.v4.app.Fragment{
                 APICall.submitForm(formId, email, fields, requestFiles).subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
-                        startActivity(new Intent(getActivity(), ComplaintListActivity.class));
+                        startActivity(new Intent(getActivity(), HomeActivity.class));
                         Toast.makeText(getActivity().getApplicationContext(), "Form submitted successfully", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.w("form submit exception", e);
-                        startActivity(new Intent(getActivity(), ComplaintListActivity.class));
+                        startActivity(new Intent(getActivity(), HomeActivity.class));
                         Toast.makeText(getActivity().getApplicationContext(), "Error. Form might not have\nbeen submtted successfully", Toast.LENGTH_LONG).show();
                     }
 
