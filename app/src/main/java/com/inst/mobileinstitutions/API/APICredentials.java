@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.inst.mobileinstitutions.API.Models.User;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class APICredentials {
     static final private String grant_type = "password";
@@ -41,6 +42,10 @@ public class APICredentials {
 
     public static void setLoggedUser(User loggedUser) {
         APICredentials.loggedUser = loggedUser;
+    }
+
+    public static void updateLoggedUser(Map<String, String> userInfo) {
+        APICredentials.loggedUser.updateUser(userInfo);
     }
 
     public static String getAccessToken() {

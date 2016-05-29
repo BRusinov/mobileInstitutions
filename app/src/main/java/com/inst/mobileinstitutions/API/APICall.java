@@ -78,13 +78,14 @@ public class APICall {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static void updateUser(String id,Map<String, String> userInfo){
+    public static void updateUser(String id, final Map<String, String> userInfo){
         service.updateUser(id, userInfo)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
+                        APICredentials.updateLoggedUser(userInfo);
                         Log.w("userProfile", "user updated");
                     }
 

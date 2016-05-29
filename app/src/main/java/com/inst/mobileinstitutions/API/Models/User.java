@@ -3,6 +3,7 @@ package com.inst.mobileinstitutions.API.Models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.Map;
 
 public class User {
     private String id;
@@ -77,5 +78,14 @@ public class User {
 
     public boolean isInstitution(){
         return (getPermission_level() > 1);
+    }
+
+    public void updateUser(Map<String, String> userInfo){
+        first_name = userInfo.get("first_name");
+        last_name = userInfo.get("last_name");
+        email = userInfo.get("email");
+        city = userInfo.get("city");
+        phone = userInfo.get("phone");
+        address = userInfo.get("address");
     }
 }
