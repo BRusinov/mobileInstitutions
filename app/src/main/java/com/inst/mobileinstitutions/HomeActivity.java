@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
 import com.facebook.appevents.AppEventsLogger;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
@@ -21,7 +24,6 @@ public class HomeActivity extends BaseMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         /*APICall.getResource("forms").subscribe(sendit Subscriber<List<Form>>() {
             @Override
             public void onCompleted() {
@@ -62,7 +64,6 @@ public class HomeActivity extends BaseMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
     }
     @Override
     protected void onResume() {
@@ -77,6 +78,10 @@ public class HomeActivity extends BaseMenuActivity {
 
         // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
+    }
+
+    public void startFormsList(View view){
+        startActivity(new Intent(getApplicationContext(), FormListActivity.class));
     }
 
 }

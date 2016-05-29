@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -68,10 +69,10 @@ public class ProfileActivity extends BaseMenuActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // need to implement password verification
-                        if (APICredentials.getPassword().equals(password.getText().toString())) {
+                        if (APICredentials.getPassword().equals(password.getText().toString()))
                             saveChanges();
-                            //startActivity(sendit Intent(ProfileActivity.this, ComplaintListActivity.class));
-                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Error: wrong password", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -114,8 +115,10 @@ public class ProfileActivity extends BaseMenuActivity {
         newUserInfo.put("address", mAddressTextView.getText().toString());
 
         newUserInfo.put("old_pass", APICredentials.getPassword());
-
         APICall.updateUser(user.getId(), newUserInfo);
+
+        startActivity(new Intent(this, HomeActivity.class));
+        Toast.makeText(getApplicationContext(), "Profile changed successfully", Toast.LENGTH_LONG).show();
     }
 
 }
