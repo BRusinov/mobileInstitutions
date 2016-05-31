@@ -377,7 +377,7 @@ public class FormFragment extends android.support.v4.app.Fragment{
                     else if (view instanceof RadioGroup){
                         RadioGroup radios = (RadioGroup) view;
                         int chosen_id = radios.getCheckedRadioButtonId();
-                        RadioButton rb = (RadioButton) radios.getChildAt(chosen_id);
+                        RadioButton rb = (RadioButton) radios.findViewById(chosen_id);
                         if (chosen_id != -1)
                             fields.put(fieldHtmlNames.get(i-filesSoFar), rb.getText().toString());
                         else

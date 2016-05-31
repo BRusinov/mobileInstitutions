@@ -103,17 +103,6 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             }
         });
 
-
-        // Sign up for institution
-        Button mInstitutionSignInButton= (Button) findViewById(R.id.institution_sign_in_button);
-        mInstitutionSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // something when the user is institution
-                InstitutionLogin();
-            }
-        });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -229,11 +218,6 @@ public class RegisterActivity extends BaseMenuActivity implements LoaderCallback
             mAuthTask = new UserRegisterTask(email, password);
             mAuthTask.execute((Void) null);
         }
-    }
-
-    private void InstitutionLogin(){
-        //mAuthTask.execute((Void) null);
-        startActivity(new Intent(RegisterActivity.this, InstitutionRegistration.class));
     }
 
     private boolean isEmailValid(String email) {

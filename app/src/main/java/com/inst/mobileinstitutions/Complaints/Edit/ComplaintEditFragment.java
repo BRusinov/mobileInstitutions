@@ -1,6 +1,7 @@
 package com.inst.mobileinstitutions.Complaints.Edit;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,11 +16,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.Models.Complaint;
 import com.inst.mobileinstitutions.API.Models.FileField;
 import com.inst.mobileinstitutions.API.Models.Fill;
+import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.R;
 
 import java.io.File;
@@ -74,7 +77,7 @@ public class ComplaintEditFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.complaint_status_types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(adapter);
-        statusSpinner.setSelection(status - 1);
+        statusSpinner.setSelection(status-1);
 
         Button changeButton = new Button(getActivity());
         changeButton.setText("Промени");
@@ -83,7 +86,8 @@ public class ComplaintEditFragment extends Fragment {
             public void onClick(View v) {
                 int status = statusSpinner.getSelectedItemPosition();
                 APICall.updateComplaint(mComplaintId, status);
-
+                startActivity(new Intent(getActivity(), ComplaintListActivity.class));
+                Toast.makeText(getContext(), "status changed sussessfully", Toast.LENGTH_LONG).show();
             }
         });
 

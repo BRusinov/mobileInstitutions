@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MobileInstitutions</string>
-    
+
+    <!-- String related to home -->
+    <string name="home_large_text_title">Мобилно приложение за изпращане на сигнали към институциите на Република България</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -18,9 +21,7 @@
         completions."
     </string>
     <string name="title_activity_institution_login">Sign in</string>
-    <string name="title_login_activity">Sign in</string>
     <string name="title_activity_institution_verification">Идентификация на институцията</string>
-    <string name="title_activity_form_select">FormSelectActivity</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -56,18 +57,20 @@
     </string-array>
     <!-- status types -->
     <string-array name="complaint_status_types">
-        <item>Отхвърлена</item>
         <item>Разглежда се</item>
+        <item>Отхвърлена</item>
         <item>Разрешена</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Screen titles -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_form">FormActivity</string>
-    <string name="title_activity_register">Registration</string>
-    <string name="title_activity_dashboard">Dashboard</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_form">Форма</string>
+    <string name="title_login_activity">Влез</string>
+    <string name="title_activity_form_select">Избор на форма</string>
+    <string name="title_activity_register">Регистрация</string>
+    <string name="title_activity_dashboard">Оплаквания</string>
+    <string name="title_activity_main">Начало</string>
+    <string name="title_activity_profile">Профил</string>
 
     <!-- Strings related to Settings -->
 
