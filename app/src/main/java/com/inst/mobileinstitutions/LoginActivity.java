@@ -104,14 +104,13 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
     private static final String CHAR_LIST =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     private static final int RANDOM_STRING_LENGTH = 10;
-    //    private LoginButton loginButton;
+//    private LoginButton loginButton;
     public CallbackManager callbackManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -188,7 +187,6 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
 
         getLoaderManager().initLoader(0, null, this);
     }
-
 
     private boolean mayRequestContacts() {
         if (ContextCompat.checkSelfPermission(LoginActivity.this, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
@@ -364,7 +362,7 @@ public class LoginActivity extends BaseMenuActivity implements LoaderCallbacks<C
 
         return Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("podaisignal123@gmail.com", "izprashtame");
+                return new PasswordAuthentication("borislav.rusinov@gmail.com", "kingsizeasdf1234");
             }
         });
     }

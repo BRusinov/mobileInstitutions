@@ -6,21 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.inst.mobileinstitutions.API.APICall;
 import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
-import com.inst.mobileinstitutions.Forms.Show.FormActivity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class BaseMenuActivity extends AppCompatActivity {
 
@@ -41,7 +34,6 @@ public class BaseMenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_options, menu);
         invalidateOptionsMenu();
         return true;
@@ -49,9 +41,6 @@ public class BaseMenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
@@ -75,7 +64,6 @@ public class BaseMenuActivity extends AppCompatActivity {
             case R.id.logout_menu_item:
                 ProfileActivity logout = new ProfileActivity();
                 logout.Logout(this);
-                //startActivity(sendit Intent(BaseMenuActivity.this, HomeActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -89,16 +77,16 @@ public class BaseMenuActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         APICall.signOut();
-                        //LoginManager.getInstance().logOut();
+                        LoginManager.getInstance().logOut();
                         context.startActivity(new Intent(context, HomeActivity.class));
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 }
+

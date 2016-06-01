@@ -27,16 +27,10 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.inst.mobileinstitutions.API.APICredentials;
-import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
-import com.inst.mobileinstitutions.Forms.List.FormListActivity;
-import com.inst.mobileinstitutions.API.APICall;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import rx.Subscriber;
-import rx.functions.Action1;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -113,29 +107,6 @@ public class LoginActivityFragment extends Fragment {
             AccessToken accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
             textView.setText(displayMessage(profile));
-            APICall.signUp(profile.getFirstName(),profile.getId());
-            final String firstName=profile.getFirstName();
-            final String password=profile.getId();
-//            APICall.signIn(firstName,profile.getId());
-            APICall.getUserByEmail(firstName).subscribe(new Subscriber<User>() {
-                @Override
-                public void onCompleted() {
-//                    APICall.signIn(firstName,password);
-                    APICredentials.setUsername(firstName);
-                    APICredentials.setPassword(password);
-                    APICredentials.cancelAccessToken();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.d("error",e.toString());
-                }
-
-                @Override
-                public void onNext(User user) {
-                    APICredentials.setLoggedUser(user);
-                }
-            });
         }
 
         @Override
@@ -154,9 +125,8 @@ public class LoginActivityFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && isNetworkAvailable()) {
-            Intent secondActivityIntent = new Intent(getActivity(), FormListActivity.class);
+            Intent secondActivityIntent = new Intent(getActivity(), ComplaintListActivity.class);
             startActivity(secondActivityIntent);
-
         }
     }
 
