@@ -27,10 +27,16 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.inst.mobileinstitutions.API.APICredentials;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
-
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+import com.inst.mobileinstitutions.API.APICall;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import rx.Subscriber;
+import rx.functions.Action1;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -107,16 +113,36 @@ public class LoginActivityFragment extends Fragment {
             AccessToken accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
             textView.setText(displayMessage(profile));
+            APICall.signUp(profile.getFirstName(),profile.getId());
+            final String firstName=profile.getFirstName();
+            final String password=profile.getId();
+            APICall.getUserByEmail(firstName).subscribe(new Subscriber<User>() {
+                @Override
+                public void onCompleted() {
+                    APICredentials.setUsername(firstName);
+                    APICredentials.setPassword(password);
+                    APICredentials.cancelAccessToken();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("error",e.toString());
+                }
+
+                @Override
+                public void onNext(User user) {
+                    APICredentials.setLoggedUser(user);
+                }
+            });
         }
 
         @Override
         public void onCancel() {
 
         }
-
         @Override
         public void onError(FacebookException e) {
-            Toast.makeText(getActivity(), "No internet connection. "+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Липса на интернет връзка..."+ e , Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -125,7 +151,7 @@ public class LoginActivityFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && isNetworkAvailable()) {
-            Intent secondActivityIntent = new Intent(getActivity(), ComplaintListActivity.class);
+            Intent secondActivityIntent = new Intent(getActivity(), FormListActivity.class);
             startActivity(secondActivityIntent);
         }
     }
@@ -154,14 +180,11 @@ public class LoginActivityFragment extends Fragment {
     private String displayMessage(Profile profile) {
         StringBuilder stringBuilder = new StringBuilder();
         if (profile != null) {
-            stringBuilder.append("Logged In " + profile.getFirstName());
-            Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
-//            Intent intent= sendit Intent(getActivity(),DashboardActivity.class);
-//            startActivityForResult(intent, 2);
+            stringBuilder.append("Влязъл" + profile.getFirstName());
+            Toast.makeText(getActivity(), "Влизане като: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
         }else{
-            stringBuilder.append("You are not logged in");
+            stringBuilder.append("Не успяхте да влезете!");
         }
         return stringBuilder.toString();
     }
-
 }
