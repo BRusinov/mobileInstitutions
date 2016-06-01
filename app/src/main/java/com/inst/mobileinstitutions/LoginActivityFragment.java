@@ -3,15 +3,10 @@ package com.inst.mobileinstitutions;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Base64;
-import android.content.pm.Signature;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +23,6 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-/**
- * A placeholder fragment containing a simple view.
- */
 public class LoginActivityFragment extends Fragment {
 
     private TextView textView;
@@ -93,7 +81,7 @@ public class LoginActivityFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView=(TextView)view.findViewById(R.id.text);
-        textView.setText("You are not logged in");
+        textView.setText("Не сте влязли!");
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setCompoundDrawables(null, null, null, null);
         loginButton.setReadPermissions("user_friends");
@@ -156,10 +144,9 @@ public class LoginActivityFragment extends Fragment {
         if (profile != null) {
             stringBuilder.append("Logged In " + profile.getFirstName());
             Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
-//            Intent intent= sendit Intent(getActivity(),DashboardActivity.class);
-//            startActivityForResult(intent, 2);
         }else{
-            stringBuilder.append("You are not logged in");
+            stringBuilder
+                    .append("You are not logged in");
         }
         return stringBuilder.toString();
     }
