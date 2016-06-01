@@ -3,14 +3,10 @@ package com.inst.mobileinstitutions;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Base64;
-import android.content.pm.Signature;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,18 +25,12 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.inst.mobileinstitutions.API.APICredentials;
 import com.inst.mobileinstitutions.API.Models.User;
-import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
 import com.inst.mobileinstitutions.Forms.List.FormListActivity;
 import com.inst.mobileinstitutions.API.APICall;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import rx.Subscriber;
 import rx.functions.Action1;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class LoginActivityFragment extends Fragment {
 
     private TextView textView;
