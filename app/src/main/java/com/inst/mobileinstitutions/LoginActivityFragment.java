@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,14 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.inst.mobileinstitutions.API.APICall;
+import com.inst.mobileinstitutions.API.APICredentials;
+import com.inst.mobileinstitutions.API.Models.User;
 import com.inst.mobileinstitutions.Complaints.List.ComplaintListActivity;
+import com.inst.mobileinstitutions.Forms.List.FormListActivity;
+
+import rx.Subscriber;
+
 public class LoginActivityFragment extends Fragment {
 
     private TextView textView;
@@ -95,6 +103,27 @@ public class LoginActivityFragment extends Fragment {
             AccessToken accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
             textView.setText(displayMessage(profile));
+            APICall.signUp(profile.getFirstName(),profile.getId());
+            final String firstName=profile.getFirstName();
+            final String password=profile.getId();
+            APICall.getUserByEmail(firstName).subscribe(new Subscriber<User>() {
+                @Override
+                public void onCompleted() {
+                    APICredentials.setUsername(firstName);
+                    APICredentials.setPassword(password);
+                    APICredentials.cancelAccessToken();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("error",e.toString());
+                }
+
+                @Override
+                public void onNext(User user) {
+                    APICredentials.setLoggedUser(user);
+                }
+            });
         }
 
         @Override
@@ -104,7 +133,7 @@ public class LoginActivityFragment extends Fragment {
 
         @Override
         public void onError(FacebookException e) {
-            Toast.makeText(getActivity(), "No internet connection. "+ e , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Липса на интернет връзка..."+ e , Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -113,7 +142,7 @@ public class LoginActivityFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && isNetworkAvailable()) {
-            Intent secondActivityIntent = new Intent(getActivity(), ComplaintListActivity.class);
+            Intent secondActivityIntent = new Intent(getActivity(), FormListActivity.class);
             startActivity(secondActivityIntent);
         }
     }
@@ -143,10 +172,10 @@ public class LoginActivityFragment extends Fragment {
         StringBuilder stringBuilder = new StringBuilder();
         if (profile != null) {
             stringBuilder.append("Logged In " + profile.getFirstName());
-            Toast.makeText(getActivity(), "You are logged in as: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Влезли сте като: "+profile.getFirstName(), Toast.LENGTH_SHORT).show();
         }else{
             stringBuilder
-                    .append("You are not logged in");
+                    .append("Не сте влезли!");
         }
         return stringBuilder.toString();
     }
